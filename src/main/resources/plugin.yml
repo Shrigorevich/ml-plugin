@@ -1,0 +1,9 @@
+name: Plugin
+version: ${project.version}
+main: com.shrigorevich.Plugin
+api-version: 1.16
+commands:
+  auth:
+    description: "Авторизация"
+    aliases: [ authorization ]
+

@@ -1,0 +1,8 @@
+WORD: 'Go v tanki'
+
+HELLO:
+  - Hi
+  - Heya
+  - Hello
+
+DB_STRING: "mongodb://localhost:27017"
