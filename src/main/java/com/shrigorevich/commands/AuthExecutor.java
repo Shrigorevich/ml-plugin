@@ -1,6 +1,7 @@
-package com.shrigorevich.authorization;
+package com.shrigorevich.commands;
 
 import com.shrigorevich.Plugin;
+import com.shrigorevich.authorization.PlayerData;
 import org.bson.Document;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-public class AuthCommandExecutor implements CommandExecutor {
+public class AuthExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 

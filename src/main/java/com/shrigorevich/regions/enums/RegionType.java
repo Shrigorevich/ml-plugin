@@ -5,9 +5,13 @@ public enum RegionType {
     ADMIN("Admin"),
     GUILD("Guild");
 
-    public final String label;
+    private final String type;
 
-    private RegionType(String label){
-        this.label = label;
+    RegionType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 }

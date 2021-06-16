@@ -1,4 +1,4 @@
-package com.shrigorevich.authorization;
+package com.shrigorevich.listeners;
 
 import com.shrigorevich.Plugin;
 import net.kyori.adventure.text.Component;
@@ -8,7 +8,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
-public class AuthListener implements Listener {
+public class PreLogin implements Listener {
     String nameMsg = ChatColor.RED + "Игрок с таким именем уже на сервере",
             regMsg = ChatColor.RED + "Вы не зарегистрированы на сайте";
 
@@ -23,4 +23,6 @@ public class AuthListener implements Listener {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text(nameMsg));
         }
     }
+
+
 }

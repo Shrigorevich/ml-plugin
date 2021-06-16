@@ -6,4 +6,7 @@ commands:
   auth:
     description: "Авторизация"
     aliases: [ authorization ]
+  region:
+    description: "Region management"
+    aliases: [ reg ]
 

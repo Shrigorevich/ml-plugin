@@ -2,18 +2,36 @@ package com.shrigorevich.regions;
 
 import com.shrigorevich.regions.enums.RegionType;
 import com.shrigorevich.regions.enums.VillageType;
+import org.bson.Document;
+import org.bukkit.Location;
+import java.util.LinkedList;
 
 public class Region {
     private RegionType type;
     private Square square;
-    private String ownerName;
+    private String owner;
     private VillageType village;
 
-    public Region(RegionType type, Square square, String ownerName, VillageType village) {
+    public Region() {}
+
+    public Region(LinkedList<Location> squareCoords) {
+        this(
+            new Square(squareCoords.getFirst(), squareCoords.getLast()),
+            RegionType.ADMIN,
+            "ADMIN",
+            VillageType.FIRST
+        );
+    }
+
+    public Region(Square square, RegionType type, String owner, VillageType village) {
         this.type = type;
         this.square = square;
-        this.ownerName = ownerName;
+        this.owner = owner;
         this.village = village;
+    }
+
+    public String getOwner() {
+        return owner;
     }
 
     public RegionType getType(){
@@ -26,5 +44,13 @@ public class Region {
 
     public VillageType getVillage() {
         return village;
+    }
+
+    public Document packData() {
+        Document doc = new Document();
+        doc.append("owner", owner);
+        doc.append("type", type.getType());
+        doc.append("square", square.packData());
+        return doc;
     }
 }

@@ -1,5 +1,7 @@
 package com.shrigorevich.regions;
 
+import com.shrigorevich.Plugin;
+import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -49,31 +51,37 @@ public class Square {
         return (this.z2 - this.z1) + 1;
     }
 
-    public Square expand(Cuboid.CuboidDirection dir, int amount) {
-        switch (dir) {
-            case North:
-                return new Square(this.worldName, this.x1 - amount, this.z1, this.x2, this.z2);
-            case South:
-                return new Square(this.worldName, this.x1, this.z1, this.x2 + amount, this.z2);
-            case East:
-                return new Square(this.worldName, this.x1, this.z1 - amount, this.x2, this.z2);
-            case West:
-                return new Square(this.worldName, this.x1, this.z1, this.x2, this.z2 + amount);
-            default:
-                throw new IllegalArgumentException("Invalid direction " + dir);
-        }
-    }
-
     public boolean contains(int x, int z) {
         return x >= this.x1 && x <= this.x2 && z >= this.z1 && z <= this.z2;
-    }
-
-    public boolean contains(Block b) {
-        return this.contains(b.getLocation());
     }
 
     public boolean contains(Location l) {
         if (!this.worldName.equals(l.getWorld().getName())) return false;
         return this.contains(l.getBlockX(), l.getBlockZ());
+    }
+
+    public Location getLowerNE() {
+        return this.getWorld().getHighestBlockAt(this.x1, this.z1).getLocation();
+    }
+
+    public Location[] getRegionCorners() {
+        Location[] res = new Location[4];
+        World w = this.getWorld();
+        res[0] = w.getHighestBlockAt(this.x1, this.z1).getLocation().add(0,1,0);
+        res[1] = w.getHighestBlockAt(this.x1, this.z2).getLocation().add(0,1,0);
+        res[2] = w.getHighestBlockAt(this.x2, this.z2).getLocation().add(0,1,0);
+        res[3] = w.getHighestBlockAt(this.x2, this.z1).getLocation().add(0,1,0);
+        return res;
+    }
+
+    public Document packData() {
+        Document doc = new Document();
+        doc.append("worldName", worldName);
+        doc.append("x1", x1);
+        doc.append("x2", x2);
+        doc.append("z1", z1);
+        doc.append("z2", z2);
+
+        return doc;
     }
 }

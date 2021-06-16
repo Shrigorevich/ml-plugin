@@ -1,6 +1,16 @@
 package com.shrigorevich.regions.enums;
 
 public enum VillageType {
-    FISRT,
-    SECOND,
+    FIRST("First"),
+    SECOND("Second");
+
+    private final String type;
+
+    VillageType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

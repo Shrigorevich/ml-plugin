@@ -1,4 +1,4 @@
-package com.shrigorevich.authorization;
+package com.shrigorevich.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

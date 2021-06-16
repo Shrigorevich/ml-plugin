@@ -1,5 +1,6 @@
 package com.shrigorevich.authorization;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,18 +16,18 @@ public class PlayerCache {
     }
 
     public void updatePlayer(PlayerData p) {
-        cache.put(p.getName().toLowerCase(), p);
+        cache.put(p.getName(), p);
     }
 
     public void removePlayer(String user) {
-        cache.remove(user.toLowerCase());
+        cache.remove(user);
     }
 
     public boolean isAuthenticated(String user) {
         return cache.containsKey(user);
     }
 
-    public Map<String, PlayerData> getInstance() {
+    public Map<String, PlayerData> getCache() {
         return this.cache;
     }
 }
