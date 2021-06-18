@@ -5,20 +5,17 @@ import com.shrigorevich.commands.RegionExecutor;
 import com.shrigorevich.listeners.OnInteract;
 import com.shrigorevich.listeners.OnLeft;
 import com.shrigorevich.listeners.PreLogin;
-import com.shrigorevich.authorization.PlayerCache;
+import com.shrigorevich.authorization.PlayerManager;
 import com.shrigorevich.listeners.PreventActionListener;
 import com.shrigorevich.regions.RegionManager;
 import com.shrigorevich.regions.session.SessionManager;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class Plugin extends JavaPlugin implements Listener {
     private DataBase db;
-    private PlayerCache pCache;
+    private PlayerManager pCache;
     private SessionManager sessionManager;
     private RegionManager regionManager;
 
@@ -27,7 +24,7 @@ public final class Plugin extends JavaPlugin implements Listener {
 
 
         db = new DataBase();
-        pCache = new PlayerCache();
+        pCache = new PlayerManager();
         sessionManager = new SessionManager();
         regionManager = new RegionManager();
 
@@ -49,7 +46,7 @@ public final class Plugin extends JavaPlugin implements Listener {
     public void onDisable() {
     }
 
-    public PlayerCache getPlayerCache(){
+    public PlayerManager getPlayerCache(){
         return pCache;
     }
 

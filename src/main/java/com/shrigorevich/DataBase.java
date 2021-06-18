@@ -7,12 +7,9 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.shrigorevich.regions.Region;
 import org.bson.Document;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bukkit.event.Listener;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 
 public class DataBase implements Listener {
     private MongoClient mc;
@@ -29,9 +26,9 @@ public class DataBase implements Listener {
 
     }
 
-    public boolean isUserRegistered(String name){
+    public Document getRegisteredUser(String name){
         Document doc = usersCol.find(Filters.eq("nickname", name)).first();
-        return doc != null;
+        return doc;
     }
 
     public Document authPlayer(String name, String password) {

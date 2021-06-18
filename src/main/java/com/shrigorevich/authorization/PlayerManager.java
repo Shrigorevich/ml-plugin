@@ -1,13 +1,12 @@
 package com.shrigorevich.authorization;
 
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class PlayerCache {
+public class PlayerManager {
     private final Map<String, PlayerData> cache = new ConcurrentHashMap<>();
 
-    public int getLogged() {
+    public int getCurrentOnline() {
         return cache.size();
     }
 

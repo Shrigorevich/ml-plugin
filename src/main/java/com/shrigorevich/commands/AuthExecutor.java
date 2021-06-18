@@ -18,7 +18,6 @@ public class AuthExecutor implements CommandExecutor {
         if(args.length > 0){
             if(sender instanceof Player){
                 Player player = (Player) sender;
-                player.sendMessage("Authorization started");
                 Document doc = Plugin.getInstance().getDb().authPlayer(player.getName(), args[0]);
                 if(doc != null) {
                     PlayerData pData = new PlayerData(doc);
