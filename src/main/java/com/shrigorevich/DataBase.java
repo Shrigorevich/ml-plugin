@@ -1,14 +1,14 @@
 package com.shrigorevich;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.shrigorevich.regions.Region;
 import org.bson.Document;
 import org.bukkit.event.Listener;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class DataBase implements Listener {
@@ -24,6 +24,20 @@ public class DataBase implements Listener {
         usersCol = database.getCollection("users");
         regionCol = database.getCollection("regions");
 
+    }
+
+    public ArrayList<Region> getAllRegions() {
+        MongoCursor<Document> cursor = regionCol.find().iterator();
+        ArrayList<Region> regions = new ArrayList<Region>();
+        try {
+            while (cursor.hasNext()) {
+               regions.add(new Region(cursor.next()));
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return regions;
     }
 
     public Document getRegisteredUser(String name){

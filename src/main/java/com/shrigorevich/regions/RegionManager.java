@@ -1,5 +1,6 @@
 package com.shrigorevich.regions;
 
+import com.shrigorevich.Plugin;
 import org.bukkit.Location;
 
 import java.util.*;
@@ -7,10 +8,10 @@ import java.util.*;
 public class RegionManager {
 
     private final ArrayList<Region> regions;
-    private HashSet<Region> region;
+    //private HashSet<Region> region;
 
     public RegionManager() {
-        regions = new ArrayList<Region>();
+        regions = Plugin.getInstance().getDb().getAllRegions();
     }
 
     public void addRegion(Region r) {

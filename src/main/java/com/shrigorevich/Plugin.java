@@ -15,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Plugin extends JavaPlugin implements Listener {
     private DataBase db;
-    private PlayerManager pCache;
+    private PlayerManager playerManager;
     private SessionManager sessionManager;
     private RegionManager regionManager;
 
@@ -24,7 +24,7 @@ public final class Plugin extends JavaPlugin implements Listener {
 
 
         db = new DataBase();
-        pCache = new PlayerManager();
+        playerManager = new PlayerManager();
         sessionManager = new SessionManager();
         regionManager = new RegionManager();
 
@@ -46,8 +46,8 @@ public final class Plugin extends JavaPlugin implements Listener {
     public void onDisable() {
     }
 
-    public PlayerManager getPlayerCache(){
-        return pCache;
+    public PlayerManager getPlayerManager(){
+        return playerManager;
     }
 
     public SessionManager getSessionManager() {

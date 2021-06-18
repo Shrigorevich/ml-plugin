@@ -37,6 +37,14 @@ public class Square {
         this(other.getWorld().getName(), other.x1, other.z1, other.x2, other.z2);
     }
 
+    public Square(Document doc) {
+        this.worldName = doc.getString("worldName");
+        this.x1 = doc.getInteger("x1");
+        this.x2 = doc.getInteger("x2");
+        this.z1 = doc.getInteger("z1");
+        this.z2 = doc.getInteger("z2");
+    }
+
     public World getWorld() {
         World world = Bukkit.getWorld(this.worldName);
         if (world == null) throw new IllegalStateException("World '" + this.worldName + "' is not loaded");

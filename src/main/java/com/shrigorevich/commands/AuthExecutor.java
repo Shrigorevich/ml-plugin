@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class AuthExecutor implements CommandExecutor {
     @Override
@@ -20,8 +19,7 @@ public class AuthExecutor implements CommandExecutor {
                 Player player = (Player) sender;
                 Document doc = Plugin.getInstance().getDb().authPlayer(player.getName(), args[0]);
                 if(doc != null) {
-                    PlayerData pData = new PlayerData(doc);
-                    Plugin.getInstance().getPlayerCache().addPlayer(pData);
+                    Plugin.getInstance().getPlayerManager().addPlayer(doc);
                     player.sendMessage("Successfully logged");
                 } else {
                     player.sendMessage("Try again");

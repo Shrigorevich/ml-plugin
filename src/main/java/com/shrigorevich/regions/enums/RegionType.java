@@ -1,9 +1,9 @@
 package com.shrigorevich.regions.enums;
 
 public enum RegionType {
-    CIVIL("Civil"),
-    ADMIN("Admin"),
-    GUILD("Guild");
+    CIVIL("CIVIL"),
+    ADMIN("ADMIN"),
+    GUILD("GUILD");
 
     private final String type;
 

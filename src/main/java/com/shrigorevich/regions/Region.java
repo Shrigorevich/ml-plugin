@@ -23,6 +23,15 @@ public class Region {
         );
     }
 
+    public Region(Document doc) {
+        this(
+            new Square((Document) doc.get("square")),
+            RegionType.valueOf(doc.getString("type")),
+            doc.getString("owner"),
+            VillageType.valueOf(doc.getString("village"))
+        );
+    }
+
     public Region(Square square, RegionType type, String owner, VillageType village) {
         this.type = type;
         this.square = square;
@@ -50,6 +59,7 @@ public class Region {
         Document doc = new Document();
         doc.append("owner", owner);
         doc.append("type", type.getType());
+        doc.append("village", village.getType());
         doc.append("square", square.packData());
         return doc;
     }
