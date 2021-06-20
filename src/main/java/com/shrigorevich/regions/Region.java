@@ -12,11 +12,9 @@ public class Region {
     private String owner;
     private VillageType village;
 
-    public Region() {}
-
-    public Region(LinkedList<Location> squareCoords) {
+    public Region(Location firstLoc, Location secondLoc) {
         this(
-            new Square(squareCoords.getFirst(), squareCoords.getLast()),
+            new Square(firstLoc, secondLoc),
             RegionType.ADMIN,
             "ADMIN",
             VillageType.FIRST

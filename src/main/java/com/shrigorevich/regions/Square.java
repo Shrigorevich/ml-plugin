@@ -21,7 +21,7 @@ public class Square {
         this.z2 = Math.max(l1.getBlockZ(), l2.getBlockZ());
     }
 
-    private Square(String worldName, int x1, int z1, int x2, int z2) {
+    public Square(String worldName, int x1, int z1, int x2, int z2) {
         this.worldName = worldName;
         this.x1 = Math.min(x1, x2);
         this.x2 = Math.max(x1, x2);

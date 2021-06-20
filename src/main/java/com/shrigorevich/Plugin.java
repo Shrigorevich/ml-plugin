@@ -22,7 +22,6 @@ public final class Plugin extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
 
-
         db = new DataBase();
         playerManager = new PlayerManager();
         sessionManager = new SessionManager();

@@ -1,4 +1,5 @@
-WORD: 'Go v tanki'
+MATRIX_GAP: 3
+SQUARE_SIZE: 4
 
 HELLO:
   - Hi
