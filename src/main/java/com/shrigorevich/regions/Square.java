@@ -1,13 +1,11 @@
 package com.shrigorevich.regions;
 
-import com.shrigorevich.Plugin;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 
-public class Square {
+public abstract class Square {
     protected final String worldName;
     protected final int x1, z1;
     protected final int x2, z2;
@@ -21,7 +19,7 @@ public class Square {
         this.z2 = Math.max(l1.getBlockZ(), l2.getBlockZ());
     }
 
-    public Square(String worldName, int x1, int z1, int x2, int z2) {
+    public Square(String worldName, int x1, int x2, int z1, int z2) {
         this.worldName = worldName;
         this.x1 = Math.min(x1, x2);
         this.x2 = Math.max(x1, x2);
@@ -31,10 +29,6 @@ public class Square {
 
     public Square(Location l1) {
         this(l1, l1);
-    }
-
-    public Square(Square other) {
-        this(other.getWorld().getName(), other.x1, other.z1, other.x2, other.z2);
     }
 
     public Square(Document doc) {
@@ -59,20 +53,11 @@ public class Square {
         return (this.z2 - this.z1) + 1;
     }
 
-    public boolean contains(int x, int z) {
-        return x >= this.x1 && x <= this.x2 && z >= this.z1 && z <= this.z2;
-    }
-
-    public boolean contains(Location l) {
-        if (!this.worldName.equals(l.getWorld().getName())) return false;
-        return this.contains(l.getBlockX(), l.getBlockZ());
-    }
-
     public Location getLowerNE() {
         return this.getWorld().getHighestBlockAt(this.x1, this.z1).getLocation();
     }
 
-    public Location[] getRegionCorners() {
+    public Location[] getSquareCorners() {
         Location[] res = new Location[4];
         World w = this.getWorld();
         res[0] = w.getHighestBlockAt(this.x1, this.z1).getLocation().add(0,1,0);
@@ -80,16 +65,5 @@ public class Square {
         res[2] = w.getHighestBlockAt(this.x2, this.z2).getLocation().add(0,1,0);
         res[3] = w.getHighestBlockAt(this.x2, this.z1).getLocation().add(0,1,0);
         return res;
-    }
-
-    public Document packData() {
-        Document doc = new Document();
-        doc.append("worldName", worldName);
-        doc.append("x1", x1);
-        doc.append("x2", x2);
-        doc.append("z1", z1);
-        doc.append("z2", z2);
-
-        return doc;
     }
 }

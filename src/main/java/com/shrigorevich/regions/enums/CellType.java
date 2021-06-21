@@ -1,13 +1,14 @@
 package com.shrigorevich.regions.enums;
 
-public enum RegionType {
+public enum CellType {
     CIVIL("CIVIL"),
+    ROAD("ROAD"),
     ADMIN("ADMIN"),
     GUILD("GUILD");
 
     private final String type;
 
-    RegionType(String type) {
+    CellType(String type) {
         this.type = type;
     }
 

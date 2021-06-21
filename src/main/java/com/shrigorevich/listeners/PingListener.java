@@ -1,4 +1,4 @@
-package com.shrigorevich;
+package com.shrigorevich.listeners;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;

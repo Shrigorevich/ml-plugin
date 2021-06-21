@@ -4,9 +4,9 @@ main: com.shrigorevich.Plugin
 api-version: 1.16
 commands:
   auth:
-    description: "Авторизация"
+    description: "Auth"
     aliases: [ authorization ]
-  region:
-    description: "Region management"
+  village:
+    description: "Village management"
     aliases: [ reg ]
 

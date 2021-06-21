@@ -1,13 +1,10 @@
 package com.shrigorevich;
 
 import com.shrigorevich.commands.AuthExecutor;
-import com.shrigorevich.commands.RegionExecutor;
-import com.shrigorevich.listeners.OnInteract;
-import com.shrigorevich.listeners.OnLeft;
-import com.shrigorevich.listeners.PreLogin;
+import com.shrigorevich.commands.VillageExecutor;
+import com.shrigorevich.listeners.*;
 import com.shrigorevich.authorization.PlayerManager;
-import com.shrigorevich.listeners.PreventActionListener;
-import com.shrigorevich.regions.RegionManager;
+import com.shrigorevich.regions.VillageManager;
 import com.shrigorevich.regions.session.SessionManager;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,7 +14,7 @@ public final class Plugin extends JavaPlugin implements Listener {
     private DataBase db;
     private PlayerManager playerManager;
     private SessionManager sessionManager;
-    private RegionManager regionManager;
+    private VillageManager villageManager;
 
     @Override
     public void onEnable() {
@@ -25,7 +22,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         db = new DataBase();
         playerManager = new PlayerManager();
         sessionManager = new SessionManager();
-        regionManager = new RegionManager();
+        villageManager = new VillageManager();
 
         this.getConfig().options().copyDefaults();
         saveDefaultConfig();
@@ -37,7 +34,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new OnInteract(), this);
 
         getCommand("auth").setExecutor(new AuthExecutor());
-        getCommand("region").setExecutor(new RegionExecutor());
+        getCommand("village").setExecutor(new VillageExecutor());
 
     }
 
@@ -53,8 +50,8 @@ public final class Plugin extends JavaPlugin implements Listener {
         return sessionManager;
     }
 
-    public RegionManager getRegionManager() {
-        return regionManager;
+    public VillageManager getVillageManager() {
+        return villageManager;
     }
 
     public DataBase getDb() {
