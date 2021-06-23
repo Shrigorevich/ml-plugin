@@ -17,20 +17,22 @@ public class VillageExecutor implements CommandExecutor {
             Plugin p = Plugin.getInstance();
             if(args[0].equals("create")) {
                 if(args.length >= 2){
-                    createVillage(args[1]);
+                    p.getVillageCreator().create(player, args[1]);
                 } else {
                   player.sendMessage("Enter village name");
                 }
             } else if(args[0].equals("matrix")) {
-                if(args.length >= 4){
+                if (args.length >= 1) {
                     try {
-                        defineMatrix(player, args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+                        p.getVillageCreator().defineMatrix(player);
                     } catch (Exception ex) {
                         player.sendMessage("Wrong dimension arguments");
                     }
                 } else {
                     player.sendMessage("Enter all mandatory arguments");
                 }
+            } else if (args[0].equals("save")) {
+                p.getVillageCreator().save(player);
             } else if(args[0].equals("check")) {
                 checkCells(args[1]);
             } else if (args[0].equals("checkcell")) {

@@ -81,12 +81,12 @@ public class DataBase implements Listener {
     }
 
     public void saveVillage(Village village) {
-        cells.insertOne(village.packData());
+        villages.insertOne(village.packData());
     }
 
-    public void saveCell(String matrixName, CellAddress address, MatrixCell cell) {
+    public void saveCell(String villageName, CellAddress address, MatrixCell cell) {
         Document cellDoc = cell.packData();
-        cellDoc.append("matrixName", matrixName);
+        cellDoc.append("villageName", villageName);
         cellDoc.append("address", address.packData());
         cells.insertOne(cellDoc);
     }

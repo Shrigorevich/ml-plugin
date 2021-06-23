@@ -4,10 +4,13 @@ import com.shrigorevich.commands.AuthExecutor;
 import com.shrigorevich.commands.VillageExecutor;
 import com.shrigorevich.listeners.*;
 import com.shrigorevich.authorization.PlayerManager;
+import com.shrigorevich.regions.VillageCreator;
 import com.shrigorevich.regions.VillageManager;
 import com.shrigorevich.regions.session.SessionManager;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import static com.shrigorevich.regions.VillageLoader.loadVillages;
 
 
 public final class Plugin extends JavaPlugin implements Listener {
@@ -15,6 +18,7 @@ public final class Plugin extends JavaPlugin implements Listener {
     private PlayerManager playerManager;
     private SessionManager sessionManager;
     private VillageManager villageManager;
+    private VillageCreator villageCreator;
 
     @Override
     public void onEnable() {
@@ -23,6 +27,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         playerManager = new PlayerManager();
         sessionManager = new SessionManager();
         villageManager = new VillageManager();
+        villageCreator = new VillageCreator();
 
         this.getConfig().options().copyDefaults();
         saveDefaultConfig();
@@ -36,6 +41,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         getCommand("auth").setExecutor(new AuthExecutor());
         getCommand("village").setExecutor(new VillageExecutor());
 
+        loadVillages();
     }
 
     @Override
@@ -50,9 +56,9 @@ public final class Plugin extends JavaPlugin implements Listener {
         return sessionManager;
     }
 
-    public VillageManager getVillageManager() {
-        return villageManager;
-    }
+    public VillageManager getVillageManager() { return villageManager; }
+
+    public VillageCreator getVillageCreator() { return villageCreator; }
 
     public DataBase getDb() {
         return db;

@@ -57,6 +57,10 @@ public abstract class Square {
         return this.getWorld().getHighestBlockAt(this.x1, this.z1).getLocation();
     }
 
+    public Location getUpperSW() {
+        return this.getWorld().getHighestBlockAt(this.x2, this.z2).getLocation();
+    }
+
     public Location[] getSquareCorners() {
         Location[] res = new Location[4];
         World w = this.getWorld();

@@ -1,4 +1,6 @@
 CELL_SIZE: 5
+MATRIX_DIM_X: 3
+MATRIX_DIM_Z: 3
 
 HELLO:
   - Hi

@@ -12,10 +12,7 @@ public class Village implements Packable {
     private String name;
     private VillageType type;
 
-    public Village(String name) {
-        this.name = name;
-        matrix = new MatrixCell[100][100];
-    }
+    public Village() { }
 
     public Village(Document doc) {
         this.name = doc.getString("name");
@@ -49,6 +46,10 @@ public class Village implements Packable {
 
     public VillageArea getArea() {
         return area;
+    }
+
+    public void setArea(Location l1, Location l2) {
+        this.area = new VillageArea(l1, l2);
     }
 
     public void defineArea(Location l1, Location l2) {

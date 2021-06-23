@@ -12,6 +12,8 @@ public class MatrixCell extends Square implements Packable {
 
     public MatrixCell(Location l1, Location l2) {
         super(l1, l2);
+        type = CellType.ADMIN;
+        owner = "Admin";
     }
 
     public MatrixCell(Document doc) {
