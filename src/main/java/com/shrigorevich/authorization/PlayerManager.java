@@ -6,7 +6,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerManager {
-    private final Map<String, PlayerData> cache = new ConcurrentHashMap<>();
+    private final Map<String, PlayerData> cache;
+
+    public PlayerManager() {
+        cache = new ConcurrentHashMap<>();
+    }
 
     public void addPlayer(Document doc) {
         PlayerData p = new PlayerData(doc);
@@ -17,16 +21,16 @@ public class PlayerManager {
         cache.remove(user);
     }
 
-    public PlayerData unpackPlayer(Document doc) {
-        return new PlayerData(doc);
-    }
-
     public boolean isAuthenticated(String user) {
         return cache.containsKey(user);
     }
 
     public int getCurrentOnline() {
         return cache.size();
+    }
+
+    public PlayerData getPlayer(String name) {
+        return cache.get(name);
     }
 
     public Map<String, PlayerData> getCache() {

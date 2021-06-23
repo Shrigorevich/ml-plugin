@@ -4,13 +4,13 @@ import com.shrigorevich.commands.AuthExecutor;
 import com.shrigorevich.commands.VillageExecutor;
 import com.shrigorevich.listeners.*;
 import com.shrigorevich.authorization.PlayerManager;
-import com.shrigorevich.regions.VillageCreator;
-import com.shrigorevich.regions.VillageManager;
-import com.shrigorevich.regions.session.SessionManager;
+import com.shrigorevich.villages.VillageCreator;
+import com.shrigorevich.villages.VillageManager;
+import com.shrigorevich.villages.session.SessionManager;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import static com.shrigorevich.regions.VillageLoader.loadVillages;
+import static com.shrigorevich.villages.VillageLoader.loadVillages;
 
 
 public final class Plugin extends JavaPlugin implements Listener {
@@ -37,6 +37,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new PingListener(), this);
         getServer().getPluginManager().registerEvents(new PreventActionListener(), this);
         getServer().getPluginManager().registerEvents(new OnInteract(), this);
+        getServer().getPluginManager().registerEvents(new OnBreak(), this);
 
         getCommand("auth").setExecutor(new AuthExecutor());
         getCommand("village").setExecutor(new VillageExecutor());

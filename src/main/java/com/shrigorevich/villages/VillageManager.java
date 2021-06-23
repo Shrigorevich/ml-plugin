@@ -1,10 +1,13 @@
-package com.shrigorevich.regions;
+package com.shrigorevich.villages;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class VillageManager {
 
-    private final ConcurrentHashMap<String, Village> villages;
+    private final Map<String, Village> villages;
 
     public VillageManager() {
         villages = new ConcurrentHashMap<>();
@@ -14,9 +17,14 @@ public class VillageManager {
         villages.put(village.getName(), village);
     }
 
-    public ConcurrentHashMap<String, Village> getVillages() {
-        return villages;
+    public Collection<Village> getVillages() {
+        return villages.values();
     }
+
+    public boolean contains(String villageName) {
+        return villages.containsKey(villageName);
+    }
+
 
     public Village getVillage(String name) {
         return villages.get(name);

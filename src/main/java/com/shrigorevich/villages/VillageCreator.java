@@ -1,7 +1,8 @@
-package com.shrigorevich.regions;
+package com.shrigorevich.villages;
 
 import com.shrigorevich.Plugin;
-import com.shrigorevich.regions.enums.VillageType;
+import com.shrigorevich.villages.enums.VillageType;
+import com.shrigorevich.villages.square.MatrixCell;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -15,21 +16,15 @@ public class VillageCreator {
     public VillageCreator() { }
 
     public void create(Player player, String name) {
-        village = new Village();
-        village.setType(getAvailableType());
-        village.setName(name);
-    }
-
-    public void setName(String name){
-        village.setName(name);
-    }
-
-    private VillageType getAvailableType() {
-        Map villages = Plugin.getInstance().getVillageManager().getVillages();
-        if (villages.size() == 0) {
-            return VillageType.FIRST;
+        if(village == null) {
+            if(!Plugin.getInstance().getVillageManager().contains(name)) {
+                village = new Village();
+                village.setName(name);
+            } else {
+                player.sendMessage("A village with this name already existed");
+            }
         } else {
-            return VillageType.SECOND;
+            player.sendMessage("Complete or clear the current creation process");
         }
     }
 
@@ -71,10 +66,6 @@ public class VillageCreator {
         }
     }
 
-    public Village getVillage() {
-        return this.village;
-    }
-
     public void save(Player player) {
         Plugin p = Plugin.getInstance();
 
@@ -105,5 +96,9 @@ public class VillageCreator {
                 p.getDb().saveCell(villageName, new CellAddress(i, j), matrix[i][j]);
             }
         }
+    }
+
+    public void reset() {
+        village = null;
     }
 }

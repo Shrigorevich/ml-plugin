@@ -1,6 +1,12 @@
 package com.shrigorevich.commands;
 
 import com.shrigorevich.Plugin;
+import com.shrigorevich.authorization.PlayerData;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.util.RGBLike;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -37,8 +43,22 @@ public class VillageExecutor implements CommandExecutor {
                 checkCells(args[1]);
             } else if (args[0].equals("checkcell")) {
                 checkCell(args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]));
-            } else if(args[0].equals("clear")) {
-
+            } else if(args[0].equals("reset")) {
+                p.getVillageCreator().reset();
+            } else if (args[0].equals("join")) {
+                if(p.getVillageManager().contains(args[1])) {
+                    PlayerData pData = p.getPlayerManager().getPlayer(player.getName());
+                    if (pData != null) {
+                        pData.setVillage(args[1]);
+                    } else {
+                        player.sendMessage("Player not authorized");
+                    }
+                } else {
+                    player.sendMessage("Village with that name does not exist");
+                }
+                player.sendMessage(ChatColor.RED + p.getVillageManager().getVillage(args[1]).getName());
+            } else if (args[0].equals("clear")) {
+                clearCells(args[1]);
             }
         }
 

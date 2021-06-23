@@ -1,4 +1,4 @@
-package com.shrigorevich.regions;
+package com.shrigorevich.villages;
 
 import com.shrigorevich.Packable;
 import org.bson.Document;

@@ -2,15 +2,14 @@ package com.shrigorevich;
 
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
-import com.shrigorevich.regions.CellAddress;
-import com.shrigorevich.regions.MatrixCell;
-import com.shrigorevich.regions.Village;
+import com.shrigorevich.villages.CellAddress;
+import com.shrigorevich.villages.square.MatrixCell;
+import com.shrigorevich.villages.Village;
 import org.bson.Document;
 import org.bukkit.event.Listener;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 public class DataBase implements Listener {

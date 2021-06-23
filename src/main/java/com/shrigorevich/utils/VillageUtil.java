@@ -1,9 +1,8 @@
 package com.shrigorevich.utils;
 
 import com.shrigorevich.Plugin;
-import com.shrigorevich.regions.MatrixCell;
-import com.shrigorevich.regions.Village;
-import org.bukkit.ChatColor;
+import com.shrigorevich.villages.square.MatrixCell;
+import com.shrigorevich.villages.Village;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
@@ -46,7 +45,7 @@ public class VillageUtil {
             for(MatrixCell cell : row) {
                 Location[] corners = cell.getSquareCorners();
                 for(Location l : corners) {
-                    l.getBlock().setType(Material.AIR);
+                    l.add(0, -1, 0).getBlock().setType(Material.AIR);
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.shrigorevich.regions.enums;
+package com.shrigorevich.villages.enums;
 
 public enum CellType {
     CIVIL("CIVIL"),

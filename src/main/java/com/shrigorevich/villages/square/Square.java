@@ -1,4 +1,4 @@
-package com.shrigorevich.regions;
+package com.shrigorevich.villages.square;
 
 import org.bson.Document;
 import org.bukkit.Bukkit;

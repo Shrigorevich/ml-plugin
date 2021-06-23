@@ -1,14 +1,10 @@
-package com.shrigorevich.regions;
+package com.shrigorevich.villages;
 
 import com.shrigorevich.Plugin;
+import com.shrigorevich.villages.square.MatrixCell;
 import org.bson.Document;
-import org.bukkit.ChatColor;
 
 public class VillageLoader {
-
-    public VillageLoader() {
-
-    }
 
     public static void loadVillages() {
 
