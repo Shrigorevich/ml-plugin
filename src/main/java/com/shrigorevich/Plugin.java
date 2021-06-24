@@ -1,9 +1,11 @@
 package com.shrigorevich;
 
 import com.shrigorevich.commands.AuthExecutor;
+import com.shrigorevich.commands.CellExecutor;
 import com.shrigorevich.commands.VillageExecutor;
 import com.shrigorevich.listeners.*;
 import com.shrigorevich.authorization.PlayerManager;
+import com.shrigorevich.villages.CellPurchaseProcessor;
 import com.shrigorevich.villages.VillageCreator;
 import com.shrigorevich.villages.VillageManager;
 import com.shrigorevich.villages.session.SessionManager;
@@ -19,6 +21,7 @@ public final class Plugin extends JavaPlugin implements Listener {
     private SessionManager sessionManager;
     private VillageManager villageManager;
     private VillageCreator villageCreator;
+    private CellPurchaseProcessor cellPurchaseProcessor;
 
     @Override
     public void onEnable() {
@@ -28,6 +31,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         sessionManager = new SessionManager();
         villageManager = new VillageManager();
         villageCreator = new VillageCreator();
+        cellPurchaseProcessor = new CellPurchaseProcessor();
 
         this.getConfig().options().copyDefaults();
         saveDefaultConfig();
@@ -41,6 +45,7 @@ public final class Plugin extends JavaPlugin implements Listener {
 
         getCommand("auth").setExecutor(new AuthExecutor());
         getCommand("village").setExecutor(new VillageExecutor());
+        getCommand("cells").setExecutor(new CellExecutor());
 
         loadVillages();
     }
@@ -60,6 +65,8 @@ public final class Plugin extends JavaPlugin implements Listener {
     public VillageManager getVillageManager() { return villageManager; }
 
     public VillageCreator getVillageCreator() { return villageCreator; }
+
+    public CellPurchaseProcessor getCellPurchaseProcessor() {return cellPurchaseProcessor; }
 
     public DataBase getDb() {
         return db;

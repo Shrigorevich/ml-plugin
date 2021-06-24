@@ -53,11 +53,11 @@ public abstract class Square {
         return (this.z2 - this.z1) + 1;
     }
 
-    public Location getLowerNE() {
+    public Location getLowerNW() {
         return this.getWorld().getHighestBlockAt(this.x1, this.z1).getLocation();
     }
 
-    public Location getUpperSW() {
+    public Location getUpperSE() {
         return this.getWorld().getHighestBlockAt(this.x2, this.z2).getLocation();
     }
 

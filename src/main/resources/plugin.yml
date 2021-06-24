@@ -9,4 +9,7 @@ commands:
   village:
     description: "Village management"
     aliases: [ reg ]
+  cells:
+    description: "Cell manager"
+    aliases: [ c ]
 

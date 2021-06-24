@@ -79,8 +79,8 @@ public class VillageCreator {
             int i = matrix.length - 1;
             int j = matrix[0].length - 1;
 
-            Location l1 = matrix[0][0].getLowerNE();
-            Location l2 = matrix[i][j].getUpperSW();
+            Location l1 = matrix[0][0].getLowerNW();
+            Location l2 = matrix[i][j].getUpperSE();
             village.setArea(l1, l2);
 
             p.getVillageManager().addVillage(village);

@@ -1,6 +1,5 @@
 package com.shrigorevich.villages;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,7 +23,6 @@ public class VillageManager {
     public boolean contains(String villageName) {
         return villages.containsKey(villageName);
     }
-
 
     public Village getVillage(String name) {
         return villages.get(name);

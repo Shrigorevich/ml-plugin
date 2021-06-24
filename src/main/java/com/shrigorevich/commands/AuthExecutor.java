@@ -20,7 +20,7 @@ public class AuthExecutor implements CommandExecutor {
                 Document doc = Plugin.getInstance().getDb().authPlayer(player.getName(), args[0]);
                 if(doc != null) {
                     Plugin.getInstance().getPlayerManager().addPlayer(doc);
-                    player.sendMessage("Successfully logged");
+                   player.sendMessage("Successfully logged");
                 } else {
                     player.sendMessage("Try again");
                 }
