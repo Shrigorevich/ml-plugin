@@ -2,6 +2,7 @@ package com.shrigorevich.villages;
 
 import com.shrigorevich.Plugin;
 import com.shrigorevich.authorization.PlayerData;
+import com.shrigorevich.villages.enums.CellType;
 import com.shrigorevich.villages.square.MatrixCell;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -24,23 +25,33 @@ public class CellPurchaseProcessor {
     public void purchaseAttempted(Player player, int i, int j) {
         Plugin p = Plugin.getInstance();
         PlayerData pData = p.getPlayerManager().getPlayer(player.getName());
+        MatrixCell[][] matrix = p.getVillageManager().getVillage(pData.getVillage()).getMatrix();
+        MatrixCell targetCell = matrix[i][j];
 
-        if(isUserCanBuyCell(pData, i, j)) {
-            p.getVillageManager().getVillage(pData.getVillage()).getMatrix()[i][j].setOwner(player.getName());
-            player.sendMessage(ChatColor.GREEN + "Successful deal!");
+        if(isAdminCell(targetCell)) {
+            player.sendMessage(ChatColor.RED + "This is an administrative cell");
+        } else if(isPlayerOwnsCell(pData.getName(), targetCell)) {
+            player.sendMessage(ChatColor.RED + "The user already owns this cell");
+        } else if(isBlockingCellNearby(pData.getName(), matrix, i, j)) {
+            player.sendMessage(ChatColor.RED + "The blocking cell is adjacent to the target cell");
         } else {
-            player.sendMessage(ChatColor.RED + "The user cannot purchase this site");
+            targetCell.setOwner(pData.getName());
+            p.getDb().updateCellOwner(pData.getVillage(), new CellAddress(i, j), targetCell);
+            player.sendMessage(ChatColor.GREEN + "Successful deal!");
         }
     }
 
-    public boolean isUserCanBuyCell(PlayerData pData, int i, int j) {
-        Plugin p = Plugin.getInstance();
-        int dimX = p.getConfig().getInt("MATRIX_DIM_X");
-        int dimZ = p.getConfig().getInt("MATRIX_DIM_Z");
+    public boolean isAdminCell(MatrixCell cell) {
+        return cell.getType().equals(CellType.ADMIN);
+    }
 
-        MatrixCell[][] matrix = p.getVillageManager().getVillage(pData.getVillage()).getMatrix();
+    public boolean isPlayerOwnsCell(String playerName, MatrixCell cell) {
+        return cell.getOwner().equals(playerName);
+    }
 
-        if(!matrix[i][j].getOwner().equals("Admin")) return false;
+    public boolean isBlockingCellNearby(String playerName, MatrixCell[][] matrix, int i, int j) {
+        int dimX = Plugin.getInstance().getConfig().getInt("MATRIX_DIM_X");
+        int dimZ = Plugin.getInstance().getConfig().getInt("MATRIX_DIM_Z");
 
         for(int dx = -1; dx < 2; dx++) {
             for(int dz = -1; dz < 2; dz++) {
@@ -50,13 +61,13 @@ public class CellPurchaseProcessor {
 
                 if(0 <= addressI && addressI < dimX && 0 <= addressJ && addressJ < dimZ) {
                     System.out.println(ChatColor.AQUA + " " + addressI + " " + addressJ);
-                    String cellOwner = matrix[addressI][addressJ].getOwner();
-                    if(!cellOwner.equals("Admin") && !cellOwner.equals(pData.getName())) {
-                        return false;
+                    MatrixCell cell = matrix[addressI][addressJ];
+                    if(isAdminCell(cell) || (!isPlayerOwnsCell(playerName, cell) && !cell.getOwner().equals("Default"))) {
+                        return true;
                     }
                 }
             }
         }
-        return true;
+        return false;
     }
 }

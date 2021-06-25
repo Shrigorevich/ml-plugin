@@ -19,12 +19,15 @@ public class VillageUtil {
 
     public static void checkCells(String villageName) {
         Village village = Plugin.getInstance().getVillageManager().getVillage(villageName);
-        MatrixCell[][] matrix = village.getMatrix();
-        for(MatrixCell[] row : matrix) {
-            for(MatrixCell cell : row) {
-                Location[] corners = cell.getSquareCorners();
-                for(Location l : corners) {
-                    l.getBlock().setType(Material.STONE);
+
+        if(village != null) {
+            MatrixCell[][] matrix = village.getMatrix();
+            for(MatrixCell[] row : matrix) {
+                for(MatrixCell cell : row) {
+                    Location[] corners = cell.getSquareCorners();
+                    for(Location l : corners) {
+                        l.getBlock().setType(Material.STONE);
+                    }
                 }
             }
         }

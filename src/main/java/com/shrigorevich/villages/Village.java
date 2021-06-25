@@ -39,8 +39,8 @@ public class Village implements Packable {
         return area;
     }
 
-    public void setArea(Location l1, Location l2) {
-        this.area = new VillageArea(l1, l2);
+    public void setArea(VillageArea area) {
+        this.area = area;
     }
 
     public Document packData() {

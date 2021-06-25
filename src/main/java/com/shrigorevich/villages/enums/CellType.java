@@ -1,8 +1,8 @@
 package com.shrigorevich.villages.enums;
 
 public enum CellType {
+    DEFAULT("DEFAULT"),
     CIVIL("CIVIL"),
-    ROAD("ROAD"),
     ADMIN("ADMIN"),
     GUILD("GUILD");
 

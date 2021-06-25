@@ -6,10 +6,14 @@ import com.shrigorevich.villages.CellAddress;
 import com.shrigorevich.villages.square.MatrixCell;
 import com.shrigorevich.villages.Village;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bukkit.event.Listener;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.ArrayList;
+
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 
 
 public class DataBase implements Listener {
@@ -63,12 +67,12 @@ public class DataBase implements Listener {
     }
 
     public Document getRegisteredUser(String name){
-        Document doc = users.find(Filters.eq("nickname", name)).first();
+        Document doc = users.find(eq("nickname", name)).first();
         return doc;
     }
 
     public Document authPlayer(String name, String password) {
-        Document doc = users.find(Filters.eq("nickname", name)).first();
+        Document doc = users.find(eq("nickname", name)).first();
         System.out.println(doc.getString("password"));
         if(BCrypt.checkpw(password, doc.getString("password"))){
             System.out.println("db.authPlayer: successfully");
@@ -88,6 +92,12 @@ public class DataBase implements Listener {
         cellDoc.append("villageName", villageName);
         cellDoc.append("address", address.packData());
         cells.insertOne(cellDoc);
+    }
+
+    public void updateCellOwner(String villageName, CellAddress address, MatrixCell cell) {
+        Bson addressFilter = Filters.eq("address", address.packData());
+        Bson villageFilter = Filters.eq("villageName", villageName);
+        cells.updateOne(Filters.and(addressFilter, villageFilter), set("owner", cell.getOwner()));
     }
 }
 

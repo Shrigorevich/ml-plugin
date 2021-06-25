@@ -7,26 +7,13 @@ import org.bukkit.Location;
 
 public class MatrixCell extends Square implements Packable {
 
-    String owner;
-    CellType type;
-
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public void setType(CellType type) {
-        this.type = type;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
+    private String owner;
+    private CellType type;
 
     public MatrixCell(Location l1, Location l2) {
         super(l1, l2);
-        type = CellType.ADMIN;
-        owner = "Admin";
+        type = CellType.DEFAULT;
+        owner = "Default";
     }
 
     public MatrixCell(Document doc) {
@@ -40,6 +27,22 @@ public class MatrixCell extends Square implements Packable {
 
         this.owner = doc.getString("owner");
         this.type = CellType.valueOf(doc.getString("type"));
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public void setType(CellType type) {
+        this.type = type;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public CellType getType() {
+        return type;
     }
 
     public Document packData() {

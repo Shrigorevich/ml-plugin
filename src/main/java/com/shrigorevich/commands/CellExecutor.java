@@ -1,6 +1,10 @@
 package com.shrigorevich.commands;
 
 import com.shrigorevich.Plugin;
+import com.shrigorevich.villages.CellAddress;
+import com.shrigorevich.villages.square.MatrixCell;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,9 +26,10 @@ public class CellExecutor implements CommandExecutor {
                         j = Integer.parseInt(args[2]);
                         p.getCellPurchaseProcessor().purchaseAttempted(player, i, j);
                     } catch (Exception e) {
+                        System.out.println(e);
                         player.sendMessage("Enter correct cell address");
                     }
-                } else if(args[0].equals("drop")) {
+                } else if(args[0].equals("giveup")) {
                     int i;
                     int j;
                     try {

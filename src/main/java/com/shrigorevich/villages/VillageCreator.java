@@ -3,6 +3,7 @@ package com.shrigorevich.villages;
 import com.shrigorevich.Plugin;
 import com.shrigorevich.villages.enums.VillageType;
 import com.shrigorevich.villages.square.MatrixCell;
+import com.shrigorevich.villages.square.VillageArea;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -37,29 +38,40 @@ public class VillageCreator {
             } else {
                 int dimX = p.getConfig().getInt("MATRIX_DIM_X");
                 int dimZ = p.getConfig().getInt("MATRIX_DIM_Z");
+                int cellSize = p.getConfig().getInt("CELL_SIZE");
 
                 MatrixCell[][] matrix = new MatrixCell[dimX][dimZ];
 
-                Location startLocation = p.getSessionManager().getLocations().getFirst();
+                Location areaStartCorner = p.getSessionManager().getLocations().getFirst();
                 Location directionLocation = p.getSessionManager().getLocations().getLast();
 
-                int directionX = startLocation.getBlockX() > directionLocation.getBlockX() ? -1 : 1;
-                int directionZ = startLocation.getBlockZ() > directionLocation.getBlockZ() ? -1 : 1;
-                int cellSize = p.getConfig().getInt("CELL_SIZE");
+                int areaDirectionX = areaStartCorner.getBlockX() > directionLocation.getBlockX() ? -1 : 1;
+                int areaDirectionZ = areaStartCorner.getBlockZ() > directionLocation.getBlockZ() ? -1 : 1;
+
+                Location areaOppositeCorner = areaStartCorner.clone()
+                        .add((dimX*cellSize-1) * areaDirectionX, 0, (dimZ*cellSize-1) * areaDirectionZ);
+
+                VillageArea villageArea = new VillageArea(areaStartCorner, areaOppositeCorner);
+
+                int cellDirectionX = villageArea.getLowerNW().getBlockX() > villageArea.getUpperSE().getBlockX() ? -1 : 1;
+                int cellDirectionZ = villageArea.getLowerNW().getBlockZ() > villageArea.getUpperSE().getBlockZ() ? -1 : 1;
 
                 for(int i = 0; i < dimX; i++) {
                     for(int j = 0; j < dimZ; j++) {
                         int offsetX = i * cellSize;
                         int offsetZ = j * cellSize;
 
-                        Location l1 = startLocation.clone().add(offsetX * directionX, 0, offsetZ * directionZ);
-                        Location l2 = startLocation.clone().add((offsetX + cellSize-1) * directionX , 0, (offsetZ + cellSize-1) * directionZ);
+                        Location l1 = villageArea.getLowerNW().clone()
+                                .add(offsetX * cellDirectionX, 0, offsetZ * cellDirectionZ);
+                        Location l2 = l1.clone()
+                                .add((cellSize-1) * cellDirectionX , 0, (cellSize-1) * cellDirectionZ);
 
                         MatrixCell mc = new MatrixCell(l1, l2);
                         matrix[i][j] = mc;
                     }
                 }
                 village.setMatrix(matrix);
+                village.setArea(villageArea);
             }
         } else {
             player.sendMessage(ChatColor.RED + "Village with that name does not exist!");
@@ -76,13 +88,6 @@ public class VillageCreator {
         } else {
             MatrixCell[][] matrix = village.getMatrix();
             saveMatrixToDB(matrix, village.getName());
-            int i = matrix.length - 1;
-            int j = matrix[0].length - 1;
-
-            Location l1 = matrix[0][0].getLowerNW();
-            Location l2 = matrix[i][j].getUpperSE();
-            village.setArea(l1, l2);
-
             p.getVillageManager().addVillage(village);
             p.getDb().saveVillage(village);
             village = null;
