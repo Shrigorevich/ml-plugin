@@ -1,7 +1,7 @@
 name: Plugin
 version: ${project.version}
 main: com.shrigorevich.Plugin
-api-version: 1.16
+api-version: 1.17
 commands:
   auth:
     description: "Auth"

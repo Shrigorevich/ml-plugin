@@ -25,8 +25,7 @@ public class PreLogin implements Listener {
 
         Document doc = Plugin.getInstance().getDb().getRegisteredUser(name);
 
-//        System.out.println(ChatColor.AQUA + "" + doc.getList("ips", String.class));
-//        System.out.println(ChatColor.GREEN + "" + event.getAddress());
+        System.out.println(ChatColor.AQUA + "" + doc.getList("ips", String.class));
 
         if (doc == null) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text(regMsg));

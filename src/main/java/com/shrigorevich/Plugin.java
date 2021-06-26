@@ -42,6 +42,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new PreventActionListener(), this);
         getServer().getPluginManager().registerEvents(new OnInteract(), this);
         getServer().getPluginManager().registerEvents(new OnBreak(), this);
+        getServer().getPluginManager().registerEvents(new OnJoin(), this);
 
         getCommand("auth").setExecutor(new AuthExecutor());
         getCommand("village").setExecutor(new VillageExecutor());
