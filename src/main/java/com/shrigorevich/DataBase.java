@@ -22,6 +22,7 @@ public class DataBase implements Listener {
     private MongoCollection<Document> users;
     private MongoCollection<Document> cells;
     private MongoCollection<Document> villages;
+    private MongoCollection<Document> skins;
 
 
     public DataBase() {
@@ -30,7 +31,7 @@ public class DataBase implements Listener {
         users = database.getCollection("users");
         cells = database.getCollection("cells");
         villages = database.getCollection("villages");
-
+        skins = database.getCollection("skins");
     }
 
     public ArrayList<Document> getCellsForVillage(String villageName) {
@@ -98,6 +99,21 @@ public class DataBase implements Listener {
         Bson addressFilter = Filters.eq("address", address.packData());
         Bson villageFilter = Filters.eq("villageName", villageName);
         cells.updateOne(Filters.and(addressFilter, villageFilter), set("owner", cell.getOwner()));
+    }
+
+    public ArrayList<Document> getSkins() {
+        MongoCursor<Document> cursor = skins.find().iterator();
+        ArrayList<Document> skins = new ArrayList<>();
+
+        try {
+            while (cursor.hasNext()) {
+                skins.add(cursor.next());
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return skins;
     }
 }
 

@@ -5,6 +5,7 @@ import com.shrigorevich.commands.CellExecutor;
 import com.shrigorevich.commands.VillageExecutor;
 import com.shrigorevich.listeners.*;
 import com.shrigorevich.authorization.PlayerManager;
+import com.shrigorevich.skins.SkinChanger;
 import com.shrigorevich.villages.CellPurchaseProcessor;
 import com.shrigorevich.villages.VillageCreator;
 import com.shrigorevich.villages.VillageManager;
@@ -22,6 +23,7 @@ public final class Plugin extends JavaPlugin implements Listener {
     private VillageManager villageManager;
     private VillageCreator villageCreator;
     private CellPurchaseProcessor cellPurchaseProcessor;
+    private SkinChanger skinChanger;
 
     @Override
     public void onEnable() {
@@ -32,6 +34,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         villageManager = new VillageManager();
         villageCreator = new VillageCreator();
         cellPurchaseProcessor = new CellPurchaseProcessor();
+        skinChanger = new SkinChanger();
 
         this.getConfig().options().copyDefaults();
         saveDefaultConfig();
@@ -68,6 +71,10 @@ public final class Plugin extends JavaPlugin implements Listener {
     public VillageCreator getVillageCreator() { return villageCreator; }
 
     public CellPurchaseProcessor getCellPurchaseProcessor() {return cellPurchaseProcessor; }
+
+    public SkinChanger getSkinChanger() {
+        return skinChanger;
+    }
 
     public DataBase getDb() {
         return db;
