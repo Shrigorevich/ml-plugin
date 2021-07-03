@@ -1,4 +1,6 @@
-package com.shrigorevich.villages;
+package com.shrigorevich.landRegistry.villages;
+
+import com.shrigorevich.landRegistry.villages.Village;
 
 import java.util.Collection;
 import java.util.Map;

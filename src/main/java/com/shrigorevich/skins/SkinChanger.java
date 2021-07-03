@@ -17,7 +17,7 @@ public class SkinChanger {
     private Map<SkinType, SkinData> skins = new ConcurrentHashMap();
 
     public SkinChanger() {
-        ArrayList<Document> skinDocs = Plugin.getInstance().getDb().getSkins();
+        ArrayList<Document> skinDocs = Plugin.getInstance().getSkinContext().getSkins();
 
         for(Document doc : skinDocs) {
             skins.put(SkinType.valueOf(doc.getString("skinType")), new SkinData(doc));

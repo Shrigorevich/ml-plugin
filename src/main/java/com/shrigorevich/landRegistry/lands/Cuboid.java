@@ -1,4 +1,4 @@
-package com.shrigorevich.villages;
+package com.shrigorevich.landRegistry.lands;
 
 import java.util.*;
 

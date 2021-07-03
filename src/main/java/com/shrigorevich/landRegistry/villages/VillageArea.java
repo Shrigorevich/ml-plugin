@@ -1,10 +1,10 @@
-package com.shrigorevich.villages.square;
+package com.shrigorevich.landRegistry.villages;
 
-import com.shrigorevich.Packable;
+import com.shrigorevich.landRegistry.lands.Square;
 import org.bson.Document;
 import org.bukkit.Location;
 
-public class VillageArea extends Square implements Packable {
+public class VillageArea extends Square {
 
     public VillageArea(Location l1, Location l2) {
         super(l1, l2);

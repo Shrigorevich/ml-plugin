@@ -1,12 +1,9 @@
-package com.shrigorevich.villages;
+package com.shrigorevich.landRegistry.villages;
 
-import com.shrigorevich.Packable;
-import com.shrigorevich.villages.square.MatrixCell;
-import com.shrigorevich.villages.square.VillageArea;
+import com.shrigorevich.landRegistry.lands.MatrixCell;
 import org.bson.Document;
-import org.bukkit.Location;
 
-public class Village implements Packable {
+public class Village {
 
     private MatrixCell[][] matrix;
     private VillageArea area;

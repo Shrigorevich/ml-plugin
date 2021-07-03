@@ -1,8 +1,8 @@
 package com.shrigorevich.utils;
 
 import com.shrigorevich.Plugin;
-import com.shrigorevich.villages.square.MatrixCell;
-import com.shrigorevich.villages.Village;
+import com.shrigorevich.landRegistry.lands.MatrixCell;
+import com.shrigorevich.landRegistry.villages.Village;
 import org.bukkit.Location;
 import org.bukkit.Material;
 

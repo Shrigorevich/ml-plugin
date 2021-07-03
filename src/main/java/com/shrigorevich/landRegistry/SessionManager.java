@@ -1,4 +1,4 @@
-package com.shrigorevich.villages.session;
+package com.shrigorevich.landRegistry;
 
 import org.bukkit.Location;
 

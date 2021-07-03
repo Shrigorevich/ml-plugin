@@ -23,7 +23,7 @@ public class PreLogin implements Listener {
             return;
         }
 
-        Document doc = Plugin.getInstance().getDb().getRegisteredUser(name);
+        Document doc = Plugin.getInstance().getUserContext().getRegisteredUser(name);
 
         System.out.println(ChatColor.AQUA + "" + doc.getList("ips", String.class));
 

@@ -1,4 +1,4 @@
-package com.shrigorevich.villages.enums;
+package com.shrigorevich.landRegistry.enums;
 
 public enum VillageType {
     FIRST("FIRST"),

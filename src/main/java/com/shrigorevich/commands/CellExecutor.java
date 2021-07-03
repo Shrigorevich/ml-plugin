@@ -1,10 +1,6 @@
 package com.shrigorevich.commands;
 
 import com.shrigorevich.Plugin;
-import com.shrigorevich.villages.CellAddress;
-import com.shrigorevich.villages.square.MatrixCell;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

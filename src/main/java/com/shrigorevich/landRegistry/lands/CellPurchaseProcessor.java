@@ -1,9 +1,10 @@
-package com.shrigorevich.villages;
+package com.shrigorevich.landRegistry.lands;
 
 import com.shrigorevich.Plugin;
 import com.shrigorevich.authorization.PlayerData;
-import com.shrigorevich.villages.enums.CellType;
-import com.shrigorevich.villages.square.MatrixCell;
+import com.shrigorevich.landRegistry.enums.CellType;
+import com.shrigorevich.landRegistry.lands.CellAddress;
+import com.shrigorevich.landRegistry.lands.MatrixCell;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -36,7 +37,7 @@ public class CellPurchaseProcessor {
             player.sendMessage(ChatColor.RED + "The blocking cell is adjacent to the target cell");
         } else {
             targetCell.setOwner(pData.getName());
-            p.getDb().updateCellOwner(pData.getVillage(), new CellAddress(i, j), targetCell);
+            p.getMatrixCellContext().updateCellOwner(pData.getVillage(), new CellAddress(i, j), targetCell);
             player.sendMessage(ChatColor.GREEN + "Successful deal!");
         }
     }

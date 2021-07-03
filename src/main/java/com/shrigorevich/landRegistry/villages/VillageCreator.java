@@ -1,14 +1,11 @@
-package com.shrigorevich.villages;
+package com.shrigorevich.landRegistry.villages;
 
 import com.shrigorevich.Plugin;
-import com.shrigorevich.villages.enums.VillageType;
-import com.shrigorevich.villages.square.MatrixCell;
-import com.shrigorevich.villages.square.VillageArea;
+import com.shrigorevich.landRegistry.lands.CellAddress;
+import com.shrigorevich.landRegistry.lands.MatrixCell;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-
-import java.util.Map;
 
 public class VillageCreator {
 
@@ -89,7 +86,7 @@ public class VillageCreator {
             MatrixCell[][] matrix = village.getMatrix();
             saveMatrixToDB(matrix, village.getName());
             p.getVillageManager().addVillage(village);
-            p.getDb().saveVillage(village);
+            p.getVillageContext().saveVillage(village);
             village = null;
         }
     }
@@ -98,7 +95,7 @@ public class VillageCreator {
         Plugin p = Plugin.getInstance();
         for(int i = 0; i < matrix.length; i++) {
             for(int j = 0; j < matrix[i].length; j++) {
-                p.getDb().saveCell(villageName, new CellAddress(i, j), matrix[i][j]);
+                p.getMatrixCellContext().saveCell(villageName, new CellAddress(i, j), matrix[i][j]);
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.shrigorevich.villages.square;
+package com.shrigorevich.landRegistry.lands;
 
 import org.bson.Document;
 import org.bukkit.Bukkit;
@@ -43,6 +43,26 @@ public abstract class Square {
         World world = Bukkit.getWorld(this.worldName);
         if (world == null) throw new IllegalStateException("World '" + this.worldName + "' is not loaded");
         return world;
+    }
+
+    public String getWorldName() {
+        return worldName;
+    }
+
+    public int getX1() {
+        return x1;
+    }
+
+    public int getX2() {
+        return x2;
+    }
+
+    public int getZ1() {
+        return z1;
+    }
+
+    public int getZ2() {
+        return z2;
     }
 
     public int getSizeX() {

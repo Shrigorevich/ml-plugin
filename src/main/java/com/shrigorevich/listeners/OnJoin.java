@@ -10,6 +10,6 @@ public class OnJoin implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
-        Plugin.getInstance().getSkinChanger().applySkin(event.getPlayer());
+        //Plugin.getInstance().getSkinChanger().applySkin(event.getPlayer());
     }
 }

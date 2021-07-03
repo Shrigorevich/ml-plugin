@@ -2,7 +2,7 @@ package com.shrigorevich.listeners;
 
 import com.shrigorevich.Plugin;
 import com.shrigorevich.authorization.PlayerData;
-import com.shrigorevich.villages.Village;
+import com.shrigorevich.landRegistry.villages.Village;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
