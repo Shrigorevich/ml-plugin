@@ -3,6 +3,7 @@ package com.shrigorevich.infrastructure.db;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.shrigorevich.infrastructure.mappers.VillageMapper;
 import com.shrigorevich.landRegistry.villages.Village;
 import org.bson.Document;
 
@@ -33,6 +34,6 @@ public class VillageContext {
     }
 
     public void saveVillage(Village village) {
-        villages.insertOne(village.packData());
+        villages.insertOne(VillageMapper.packData(village));
     }
 }

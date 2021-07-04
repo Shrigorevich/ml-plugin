@@ -11,9 +11,9 @@ public class Village {
 
     public Village() { }
 
-    public Village(Document doc) {
-        this.name = doc.getString("name");
-        this.area = new VillageArea((Document) doc.get("area"));
+    public Village(String name, VillageArea area) {
+        this.name = name;
+        this.area = area;
     }
 
     public String getName() {
@@ -38,12 +38,5 @@ public class Village {
 
     public void setArea(VillageArea area) {
         this.area = area;
-    }
-
-    public Document packData() {
-        Document doc = new Document();
-        doc.append("name", name);
-        doc.append("area", area.packData());
-        return doc;
     }
 }

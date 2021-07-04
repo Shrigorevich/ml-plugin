@@ -10,14 +10,8 @@ public class VillageArea extends Square {
         super(l1, l2);
     }
 
-    public VillageArea(Document doc) {
-        super(
-            doc.getString("worldName"),
-            doc.getInteger("x1"),
-            doc.getInteger("x2"),
-            doc.getInteger("z1"),
-            doc.getInteger("z2")
-        );
+    public VillageArea(String worldName, int x1, int x2, int z1, int z2) {
+        super(worldName, x1, x2, z1, z2);
     }
 
     public boolean contains(int x, int z) {
@@ -26,16 +20,5 @@ public class VillageArea extends Square {
 
     public boolean contains(Location l) {
         return this.contains(l.getBlockX(), l.getBlockZ());
-    }
-
-    public Document packData() {
-        Document doc = new Document();
-        doc.append("worldName", worldName);
-        doc.append("x1", x1);
-        doc.append("x2", x2);
-        doc.append("z1", z1);
-        doc.append("z2", z2);
-
-        return doc;
     }
 }

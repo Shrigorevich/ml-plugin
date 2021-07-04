@@ -1,14 +1,12 @@
 package com.shrigorevich.infrastructure.mappers;
 
 import com.shrigorevich.landRegistry.enums.CellType;
-import com.shrigorevich.landRegistry.lands.CellAddress;
 import com.shrigorevich.landRegistry.lands.MatrixCell;
 import org.bson.Document;
 
-public class CellMapper implements IMapper<MatrixCell>{
+public class CellMapper{
 
-    @Override
-    public Document packData(MatrixCell mc) {
+    public static Document packData(MatrixCell mc) {
         Document doc = new Document();
         doc.append("worldName", mc.getWorldName());
         doc.append("owner", mc.getOwner());
@@ -21,8 +19,7 @@ public class CellMapper implements IMapper<MatrixCell>{
         return doc;
     }
 
-    @Override
-    public MatrixCell unpackData(Document doc) {
+    public static MatrixCell unpackData(Document doc) {
         return new MatrixCell(
                 doc.getString("owner"),
                 CellType.valueOf(doc.getString("type")),
