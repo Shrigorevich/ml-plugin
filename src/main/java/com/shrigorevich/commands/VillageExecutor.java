@@ -50,13 +50,14 @@ public class VillageExecutor implements CommandExecutor {
                     PlayerData pData = p.getPlayerManager().getPlayer(player.getName());
                     if (pData != null) {
                         pData.setVillage(args[1]);
+                        p.getUserContext().joinVillage(player.getName(), pData.getVillage());
                     } else {
                         player.sendMessage("Player not authorized");
                     }
                 } else {
                     player.sendMessage("Village with that name does not exist");
                 }
-                player.sendMessage(ChatColor.RED + p.getVillageManager().getVillage(args[1]).getName());
+                player.sendMessage(ChatColor.RED + p.getPlayerManager().getPlayer(player.getName()).getVillage());
             } else if (args[0].equals("clear")) {
                 clearCells(args[1]);
             }

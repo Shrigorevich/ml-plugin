@@ -2,10 +2,14 @@ package com.shrigorevich.infrastructure.db;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.shrigorevich.infrastructure.mappers.AddressMapper;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 
 public class UserContext {
 
@@ -30,5 +34,10 @@ public class UserContext {
             System.out.println("db.authPlayer: failed");
             return null;
         }
+    }
+
+    public void joinVillage(String playerName, String villageName) {
+        Bson nameFilter = Filters.eq("nickname", playerName);
+        users.updateOne(nameFilter, set("village", villageName));
     }
 }

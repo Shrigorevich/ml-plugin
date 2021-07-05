@@ -12,4 +12,7 @@ commands:
   cells:
     description: "Cell manager"
     aliases: [ c ]
+  test:
+    description: "Test"
+    aliases: [ t ]
 

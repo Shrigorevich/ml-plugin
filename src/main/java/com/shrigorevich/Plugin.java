@@ -2,6 +2,7 @@ package com.shrigorevich;
 
 import com.shrigorevich.commands.AuthExecutor;
 import com.shrigorevich.commands.CellExecutor;
+import com.shrigorevich.commands.TestExecutor;
 import com.shrigorevich.commands.VillageExecutor;
 import com.shrigorevich.infrastructure.db.*;
 import com.shrigorevich.listeners.*;
@@ -56,10 +57,11 @@ public final class Plugin extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new OnInteract(), this);
         getServer().getPluginManager().registerEvents(new OnBreak(), this);
         getServer().getPluginManager().registerEvents(new OnJoin(), this);
-
+        getServer().getPluginManager().registerEvents(new OnBlockPlace(), this);
         getCommand("auth").setExecutor(new AuthExecutor());
         getCommand("village").setExecutor(new VillageExecutor());
         getCommand("cells").setExecutor(new CellExecutor());
+        getCommand("test").setExecutor(new TestExecutor());
 
         loadVillages();
     }

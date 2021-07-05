@@ -10,9 +10,9 @@ import org.bukkit.entity.Player;
 
 public class CellPurchaseProcessor {
 
-    public CellPurchaseProcessor() {
+    public CellPurchaseProcessor() { }
 
-    }
+
 
     public void giveUpOwnership(Player player, int i, int j) {
         Plugin p = Plugin.getInstance();

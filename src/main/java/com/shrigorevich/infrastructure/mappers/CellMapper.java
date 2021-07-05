@@ -11,6 +11,7 @@ public class CellMapper{
         doc.append("worldName", mc.getWorldName());
         doc.append("owner", mc.getOwner());
         doc.append("type", mc.getType().getTypeName());
+        doc.append("unbreakable", mc.isUnbreakable());
         doc.append("x1", mc.getX1());
         doc.append("x2", mc.getX2());
         doc.append("z1", mc.getZ1());
@@ -21,13 +22,14 @@ public class CellMapper{
 
     public static MatrixCell unpackData(Document doc) {
         return new MatrixCell(
-                doc.getString("owner"),
-                CellType.valueOf(doc.getString("type")),
-                doc.getString("worldName"),
-                doc.getInteger("x1"),
-                doc.getInteger("x2"),
-                doc.getInteger("z1"),
-                doc.getInteger("z2")
+            doc.getString("owner"),
+            CellType.valueOf(doc.getString("type")),
+            doc.getString("worldName"),
+            doc.getBoolean("unbreakable"),
+            doc.getInteger("x1"),
+            doc.getInteger("x2"),
+            doc.getInteger("z1"),
+            doc.getInteger("z2")
         );
     }
 }

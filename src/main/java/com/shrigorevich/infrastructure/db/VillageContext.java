@@ -34,6 +34,7 @@ public class VillageContext {
     }
 
     public void saveVillage(Village village) {
+        System.out.println("Save village");
         villages.insertOne(VillageMapper.packData(village));
     }
 }
