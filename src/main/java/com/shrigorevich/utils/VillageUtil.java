@@ -9,7 +9,7 @@ import org.bukkit.Material;
 public class VillageUtil {
 
     public static void checkCell(String villageName, int x, int y) {
-        MatrixCell cell = Plugin.getInstance().getVillageManager().getVillage(villageName).getMatrix()[x][y];
+        MatrixCell cell = Plugin.getInstance().getCellService().getMatrix(villageName)[x][y];
         Location[] corners = cell.getSquareCorners();
         for(Location l : corners) {
             //player.spawnParticle(Particle.SMOKE_NORMAL, l, 5,0.5,0,0,0);
@@ -18,10 +18,11 @@ public class VillageUtil {
     }
 
     public static void checkCells(String villageName) {
-        Village village = Plugin.getInstance().getVillageManager().getVillage(villageName);
+        Plugin p = Plugin.getInstance();
+        Village village = p.getVillageService().getVillage(villageName);
 
         if(village != null) {
-            MatrixCell[][] matrix = village.getMatrix();
+            MatrixCell[][] matrix = p.getCellService().getMatrix(villageName);
             for(MatrixCell[] row : matrix) {
                 for(MatrixCell cell : row) {
                     Location[] corners = cell.getSquareCorners();
@@ -34,7 +35,7 @@ public class VillageUtil {
     }
 
     public static void clearCell(String villageName, int x, int y) {
-        MatrixCell cell = Plugin.getInstance().getVillageManager().getVillage(villageName).getMatrix()[x][y];
+        MatrixCell cell = Plugin.getInstance().getCellService().getMatrix(villageName)[x][y];
         Location[] corners = cell.getSquareCorners();
         for(Location l : corners) {
             //player.spawnParticle(Particle.SMOKE_NORMAL, l, 5,0.5,0,0,0);
@@ -43,7 +44,7 @@ public class VillageUtil {
     }
 
     public static void clearCells(String villageName) {
-        MatrixCell[][] matrix = Plugin.getInstance().getVillageManager().getVillage(villageName).getMatrix();
+        MatrixCell[][] matrix = Plugin.getInstance().getCellService().getMatrix(villageName);
         for(MatrixCell[] row : matrix) {
             for(MatrixCell cell : row) {
                 Location[] corners = cell.getSquareCorners();

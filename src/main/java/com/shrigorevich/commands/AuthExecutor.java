@@ -1,7 +1,7 @@
 package com.shrigorevich.commands;
 
 import com.shrigorevich.Plugin;
-import com.shrigorevich.authorization.PlayerData;
+import com.shrigorevich.authorization.UserData;
 import org.bson.Document;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,10 +17,10 @@ public class AuthExecutor implements CommandExecutor {
         if(args.length > 0){
             if(sender instanceof Player){
                 Player player = (Player) sender;
-                Document doc = Plugin.getInstance().getUserContext().authPlayer(player.getName(), args[0]);
-                if(doc != null) {
-                    Plugin.getInstance().getPlayerManager().addPlayer(doc);
-                   player.sendMessage("Successfully logged");
+                UserData uData = Plugin.getInstance().getUserService().authPlayer(player, args[0]);
+                if(uData != null) {
+                    Plugin.getInstance().getUserService().addUserToState(uData);
+                    player.sendMessage("Successfully logged");
                 } else {
                     player.sendMessage("Try again");
                 }

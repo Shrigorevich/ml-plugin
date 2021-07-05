@@ -1,7 +1,7 @@
 package com.shrigorevich.listeners;
 
 import com.shrigorevich.Plugin;
-import com.shrigorevich.authorization.PlayerData;
+import com.shrigorevich.authorization.UserData;
 import com.shrigorevich.landRegistry.villages.Village;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -22,7 +22,7 @@ public class OnBreak implements Listener {
             }
         }
         if (isBlockInVillage) {
-            PlayerData pData = p.getPlayerManager().getPlayer(event.getPlayer().getName());
+            UserData pData = p.getPlayerManager().getPlayer(event.getPlayer().getName());
             Village playerVillage = p.getVillageManager().getVillage(pData.getVillage());
             if(playerVillage != null && playerVillage.getName().equals(activeVillage)) {
                 event.getPlayer().sendMessage(ChatColor.GREEN + "Allowed");

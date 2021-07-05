@@ -1,56 +1,50 @@
 package com.shrigorevich.landRegistry.lands;
 
 import com.shrigorevich.Plugin;
-import com.shrigorevich.authorization.PlayerData;
-import com.shrigorevich.landRegistry.enums.CellType;
-import com.shrigorevich.landRegistry.lands.CellAddress;
-import com.shrigorevich.landRegistry.lands.MatrixCell;
+import com.shrigorevich.authorization.UserData;
+import com.shrigorevich.enums.CellType;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class CellPurchaseProcessor {
 
-    public CellPurchaseProcessor() { }
-
-
-
-    public void giveUpOwnership(Player player, int i, int j) {
+    public static void giveUpOwnership(Player player, int i, int j) {
         Plugin p = Plugin.getInstance();
-        PlayerData pData = p.getPlayerManager().getPlayer(player.getName());
-        MatrixCell[][] matrix = p.getVillageManager().getVillage(pData.getVillage()).getMatrix();
-        if(matrix[i][j].getOwner().equals(pData.getName())) {
-            matrix[i][j].setOwner("Admin");
+        UserData uData = p.getUserService().getUserData(player.getName());
+        //TODO: Check if the user has joined the village
+        MatrixCell[][] matrix = p.getCellService().getMatrix(uData.getVillage());
+        if(matrix[i][j].getOwner().equals(player.getName())) {
+            matrix[i][j].setOwner("Default");
         }
     }
 
-    public void purchaseAttempted(Player player, int i, int j) {
+    public static void purchaseAttempted(Player player, int i, int j) {
         Plugin p = Plugin.getInstance();
-        PlayerData pData = p.getPlayerManager().getPlayer(player.getName());
-        MatrixCell[][] matrix = p.getVillageManager().getVillage(pData.getVillage()).getMatrix();
+        UserData uData = p.getUserService().getUserData(player.getName());
+        MatrixCell[][] matrix = p.getCellService().getMatrix(uData.getVillage());
         MatrixCell targetCell = matrix[i][j];
 
         if(isAdminCell(targetCell)) {
             player.sendMessage(ChatColor.RED + "This is an administrative cell");
-        } else if(isPlayerOwnsCell(pData.getName(), targetCell)) {
+        } else if(isPlayerOwnsCell(uData.getName(), targetCell)) {
             player.sendMessage(ChatColor.RED + "The user already owns this cell");
-        } else if(isBlockingCellNearby(pData.getName(), matrix, i, j)) {
+        } else if(isBlockingCellNearby(uData.getName(), matrix, i, j)) {
             player.sendMessage(ChatColor.RED + "The blocking cell is adjacent to the target cell");
         } else {
-            targetCell.setOwner(pData.getName());
-            p.getMatrixCellContext().updateCellOwner(pData.getVillage(), new CellAddress(i, j), targetCell);
+            p.getCellService().setCellOwner(uData, targetCell, new CellAddress(i, j));
             player.sendMessage(ChatColor.GREEN + "Successful deal!");
         }
     }
 
-    public boolean isAdminCell(MatrixCell cell) {
+    public static boolean isAdminCell(MatrixCell cell) {
         return cell.getType().equals(CellType.ADMIN);
     }
 
-    public boolean isPlayerOwnsCell(String playerName, MatrixCell cell) {
+    public static boolean isPlayerOwnsCell(String playerName, MatrixCell cell) {
         return cell.getOwner().equals(playerName);
     }
 
-    public boolean isBlockingCellNearby(String playerName, MatrixCell[][] matrix, int i, int j) {
+    public static boolean isBlockingCellNearby(String playerName, MatrixCell[][] matrix, int i, int j) {
         int dimX = Plugin.getInstance().getConfig().getInt("MATRIX_DIM_X");
         int dimZ = Plugin.getInstance().getConfig().getInt("MATRIX_DIM_Z");
 

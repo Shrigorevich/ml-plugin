@@ -10,4 +10,8 @@ public enum SkinType {
     SkinType(String skinName) {
         this.skinName = skinName;
     }
+
+    public String getSkinName() {
+        return skinName;
+    }
 }

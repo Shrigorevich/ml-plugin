@@ -8,6 +8,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class OnLeft implements Listener {
     @EventHandler
     public void onLeft(PlayerQuitEvent event) {
-        Plugin.getInstance().getPlayerManager().removePlayer(event.getPlayer().getName());
+        Plugin.getInstance().getUserService().removeUserFromState(event.getPlayer().getName());
     }
 }

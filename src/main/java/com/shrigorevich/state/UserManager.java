@@ -1,23 +1,24 @@
-package com.shrigorevich.authorization;
+package com.shrigorevich.state;
 
+import com.shrigorevich.authorization.UserData;
 import org.bson.Document;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class PlayerManager {
-    private final Map<String, PlayerData> cache;
+public class UserManager {
+    private final Map<String, UserData> cache;
 
-    public PlayerManager() {
+    public UserManager() {
         cache = new ConcurrentHashMap<>();
     }
 
-    public void addPlayer(Document doc) {
-        PlayerData p = new PlayerData(doc);
+    public void addUser(UserData uData) {
+        UserData p = uData;
         cache.put(p.getName(), p);
     }
 
-    public void removePlayer(String user) {
+    public void removeUser(String user) {
         cache.remove(user);
     }
 
@@ -29,11 +30,11 @@ public class PlayerManager {
         return cache.size();
     }
 
-    public PlayerData getPlayer(String name) {
+    public UserData getUser(String name) {
         return cache.get(name);
     }
 
-    public Map<String, PlayerData> getCache() {
+    public Map<String, UserData> getCache() {
         return this.cache;
     }
 }

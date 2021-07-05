@@ -1,6 +1,6 @@
 package com.shrigorevich.infrastructure.mappers;
 
-import com.shrigorevich.landRegistry.enums.CellType;
+import com.shrigorevich.enums.CellType;
 import com.shrigorevich.landRegistry.lands.MatrixCell;
 import org.bson.Document;
 

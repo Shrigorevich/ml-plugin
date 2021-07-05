@@ -17,9 +17,15 @@ public class OnInteract implements Listener {
         Action action = event.getAction();
 
         if(player.getInventory().getItemInMainHand().getType().equals(Material.FEATHER) && action.equals(Action.LEFT_CLICK_BLOCK)) {
-            Plugin.getInstance().getSessionManager().addLocation(event.getClickedBlock().getLocation());
-            player.sendMessage(ChatColor.AQUA + "First loc: " + Plugin.getInstance().getSessionManager().getLocations().getFirst());
-            player.sendMessage(ChatColor.GREEN + "Second loc: " + Plugin.getInstance().getSessionManager().getLocations().getLast());
+            Plugin.getInstance().getVillageCreator().addLocation(event.getClickedBlock().getLocation());
+            player.sendMessage(ChatColor.AQUA + "First loc: " +
+                    Plugin.getInstance().getVillageCreator().getLocations().getFirst().getBlockX() +
+                    Plugin.getInstance().getVillageCreator().getLocations().getFirst().getBlockZ()
+            );
+            player.sendMessage(ChatColor.GREEN + "Second loc: " +
+                    Plugin.getInstance().getVillageCreator().getLocations().getLast().getBlockX() +
+                    Plugin.getInstance().getVillageCreator().getLocations().getLast().getBlockZ()
+            );
         }
     }
 }

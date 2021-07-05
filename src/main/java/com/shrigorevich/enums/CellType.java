@@ -1,4 +1,4 @@
-package com.shrigorevich.landRegistry.enums;
+package com.shrigorevich.enums;
 
 public enum CellType {
     DEFAULT("DEFAULT"),

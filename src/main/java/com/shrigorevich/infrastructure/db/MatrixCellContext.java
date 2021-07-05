@@ -22,7 +22,7 @@ public class MatrixCellContext {
         this.cells = database.getCollection("cells");
     }
 
-    public void updateCellOwner(String villageName, CellAddress address, MatrixCell cell) {
+    public void updateCellOwner(MatrixCell cell, CellAddress address, String villageName) {
         Bson addressFilter = Filters.eq("address", AddressMapper.packData(address));
         Bson villageFilter = Filters.eq("villageName", villageName);
         cells.updateOne(Filters.and(addressFilter, villageFilter), set("owner", cell.getOwner()));
@@ -35,15 +35,15 @@ public class MatrixCellContext {
         cells.insertOne(cellDoc);
     }
 
-    public ArrayList<Document> getCellsByVillage(String villageName) {
+    public ArrayList<MatrixCell> getCellsByVillage(String villageName) {
 
         Document filter = new Document().append("villageName", villageName);
         MongoCursor<Document> cursor = cells.find().filter(filter).iterator();
 
-        ArrayList<Document> cells = new ArrayList<>();
+        ArrayList<MatrixCell> cells = new ArrayList<>();
         try {
             while (cursor.hasNext()) {
-                cells.add(cursor.next());
+                cells.add(CellMapper.unpackData(cursor.next()));
             }
         } finally {
             cursor.close();

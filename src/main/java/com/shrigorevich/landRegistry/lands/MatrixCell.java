@@ -1,6 +1,6 @@
 package com.shrigorevich.landRegistry.lands;
 
-import com.shrigorevich.landRegistry.enums.CellType;
+import com.shrigorevich.enums.CellType;
 import org.bukkit.Location;
 
 public class MatrixCell extends Square {

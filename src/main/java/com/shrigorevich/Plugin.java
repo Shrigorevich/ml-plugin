@@ -2,16 +2,15 @@ package com.shrigorevich;
 
 import com.shrigorevich.commands.AuthExecutor;
 import com.shrigorevich.commands.CellExecutor;
-import com.shrigorevich.commands.TestExecutor;
 import com.shrigorevich.commands.VillageExecutor;
 import com.shrigorevich.infrastructure.db.*;
+import com.shrigorevich.infrastructure.services.CellService;
+import com.shrigorevich.infrastructure.services.UserService;
+import com.shrigorevich.infrastructure.services.VillageService;
 import com.shrigorevich.listeners.*;
-import com.shrigorevich.authorization.PlayerManager;
 import com.shrigorevich.skins.SkinChanger;
 import com.shrigorevich.landRegistry.lands.CellPurchaseProcessor;
 import com.shrigorevich.landRegistry.villages.VillageCreator;
-import com.shrigorevich.landRegistry.villages.VillageManager;
-import com.shrigorevich.landRegistry.SessionManager;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,33 +18,27 @@ import static com.shrigorevich.landRegistry.villages.VillageLoader.loadVillages;
 
 
 public final class Plugin extends JavaPlugin implements Listener {
-    private PlayerManager playerManager;
-    private SessionManager sessionManager;
-    private VillageManager villageManager;
-    private VillageCreator villageCreator;
     private CellPurchaseProcessor cellPurchaseProcessor;
     private SkinChanger skinChanger;
     private DbContext dbContext;
-    private MatrixCellContext matrixCellContext;
-    private UserContext userContext;
-    private VillageContext villageContext;
     private SkinContext skinContext;
+    private VillageCreator villageCreator;
+    private VillageService villageService;
+    private CellService cellService;
+    private UserService userService;
 
     @Override
     public void onEnable() {
 
         this.dbContext = new DbContext();
-        this.matrixCellContext = new MatrixCellContext(dbContext.getDatabase());
-        this.userContext = new UserContext(dbContext.getDatabase());
-        this.villageContext = new VillageContext(dbContext.getDatabase());
         this.skinContext = new SkinContext(dbContext.getDatabase());
-
-        playerManager = new PlayerManager();
-        sessionManager = new SessionManager();
-        villageManager = new VillageManager();
-        villageCreator = new VillageCreator();
+        this.villageService = new VillageService(dbContext.getDatabase());
+        this.cellService = new CellService(dbContext.getDatabase());
+        this.userService = new UserService(dbContext.getDatabase());
+        //TODO: encapsulate to CellService
         cellPurchaseProcessor = new CellPurchaseProcessor();
         skinChanger = new SkinChanger();
+        this.villageCreator = new VillageCreator();
 
         this.getConfig().options().copyDefaults();
         saveDefaultConfig();
@@ -61,8 +54,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         getCommand("auth").setExecutor(new AuthExecutor());
         getCommand("village").setExecutor(new VillageExecutor());
         getCommand("cells").setExecutor(new CellExecutor());
-        getCommand("test").setExecutor(new TestExecutor());
-
+        //TODO: move logic to startup class
         loadVillages();
     }
 
@@ -70,17 +62,17 @@ public final class Plugin extends JavaPlugin implements Listener {
     public void onDisable() {
     }
 
-    public PlayerManager getPlayerManager(){
-        return playerManager;
+    public CellService getCellService() {
+        return cellService;
     }
 
-    public SessionManager getSessionManager() {
-        return sessionManager;
+    public VillageService getVillageService() {
+        return villageService;
     }
 
-    public VillageManager getVillageManager() { return villageManager; }
-
-    public VillageCreator getVillageCreator() { return villageCreator; }
+    public UserService getUserService() {
+        return userService;
+    }
 
     public CellPurchaseProcessor getCellPurchaseProcessor() {return cellPurchaseProcessor; }
 
@@ -88,16 +80,8 @@ public final class Plugin extends JavaPlugin implements Listener {
         return skinChanger;
     }
 
-    public MatrixCellContext getMatrixCellContext() {
-        return matrixCellContext;
-    }
-
-    public UserContext getUserContext() {
-        return userContext;
-    }
-
-    public VillageContext getVillageContext() {
-        return villageContext;
+    public VillageCreator getVillageCreator() {
+        return villageCreator;
     }
 
     public SkinContext getSkinContext() {

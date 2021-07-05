@@ -17,14 +17,14 @@ public class VillageContext {
         this.villages = database.getCollection("villages");
     }
 
-    public ArrayList<Document> getVillages() {
+    public ArrayList<Village> getVillages() {
 
         MongoCursor<Document> cursor = villages.find().iterator();
-        ArrayList<Document> villages = new ArrayList<>();
+        ArrayList<Village> villages = new ArrayList<>();
 
         try {
             while (cursor.hasNext()) {
-                villages.add(cursor.next());
+                villages.add(VillageMapper.unpackData(cursor.next()));
             }
         } finally {
             cursor.close();

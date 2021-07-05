@@ -5,7 +5,6 @@ import org.bson.Document;
 
 public class Village {
 
-    private MatrixCell[][] matrix;
     private VillageArea area;
     private String name;
 
@@ -22,14 +21,6 @@ public class Village {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public MatrixCell[][] getMatrix() {
-        return matrix;
-    }
-
-    public void setMatrix(MatrixCell[][] matrix) {
-        this.matrix = matrix;
     }
 
     public VillageArea getArea() {

@@ -3,7 +3,9 @@ package com.shrigorevich.infrastructure.db;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.shrigorevich.authorization.UserData;
 import com.shrigorevich.infrastructure.mappers.AddressMapper;
+import com.shrigorevich.infrastructure.mappers.UserMapper;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -24,12 +26,12 @@ public class UserContext {
         return doc;
     }
 
-    public Document authPlayer(String name, String password) {
+    public UserData authPlayer(String name, String password) {
         Document doc = users.find(eq("nickname", name)).first();
         System.out.println(doc.getString("password"));
         if(BCrypt.checkpw(password, doc.getString("password"))){
             System.out.println("db.authPlayer: successfully");
-            return doc;
+            return UserMapper.unpackData(doc);
         } else{
             System.out.println("db.authPlayer: failed");
             return null;

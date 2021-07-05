@@ -1,4 +1,4 @@
-package com.shrigorevich.landRegistry.villages;
+package com.shrigorevich.state;
 
 import com.shrigorevich.landRegistry.villages.Village;
 

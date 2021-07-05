@@ -1,9 +1,10 @@
 package com.shrigorevich.listeners;
 
 import com.shrigorevich.Plugin;
-import com.shrigorevich.landRegistry.enums.CellType;
+import com.shrigorevich.enums.CellType;
 import com.shrigorevich.landRegistry.lands.MatrixCell;
 import com.shrigorevich.landRegistry.villages.Village;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +20,7 @@ public class OnBlockPlace implements Listener {
         Location blockLocation = event.getBlockPlaced().getLocation();
         boolean isVillageBlock = false;
         Village village = null;
-        for(Village v : p.getVillageManager().getVillages()) {
+        for(Village v : p.getVillageService().getVillages()) {
             if(v.getArea().contains(blockLocation)) {
                 isVillageBlock = true;
                 village = v;
@@ -30,15 +31,16 @@ public class OnBlockPlace implements Listener {
             int cellSize = p.getConfig().getInt("CELL_SIZE");
             int targetCellI = (blockLocation.getBlockX() - village.getArea().getX1()) / cellSize;
             int targetCellJ = (blockLocation.getBlockZ() - village.getArea().getZ1()) / cellSize;
-            MatrixCell targetCell = village.getMatrix()[targetCellI][targetCellJ];
+            MatrixCell[][] matrix = p.getCellService().getMatrix(village.getName());
+            MatrixCell targetCell = matrix[targetCellI][targetCellJ];
 
             if(locationToCheck(blockLocation, targetCell) != null) {
                 int neighbourCellI = (blockLocation.getBlockX() - village.getArea().getX1()) / cellSize;
                 int neighbourCellJ = (blockLocation.getBlockZ() - village.getArea().getZ1()) / cellSize;
 
-                MatrixCell neighbourCell = village.getMatrix()[neighbourCellI][neighbourCellJ];
+                MatrixCell neighbourCell = matrix[neighbourCellI][neighbourCellJ];
                 if (neighbourCell.getType().equals(CellType.CIVIL) && !neighbourCell.getOwner().equals(player.getName())) {
-                    player.sendMessage("Road should be here");
+                    player.sendMessage(ChatColor.YELLOW + "Road should be here");
                 }
             }
         }

@@ -4,15 +4,15 @@ import com.shrigorevich.skins.SkinType;
 import org.bson.Document;
 import org.bukkit.ChatColor;
 
-public class PlayerData {
+public class UserData {
     private String nickname;
     private SkinType skin;
     private String village;
 
-    public PlayerData(Document doc) {
-        this.nickname = doc.getString("nickname");
-        this.skin = SkinType.valueOf(doc.getString("skin"));
-        this.village = doc.getString("village");
+    public UserData(String name, SkinType skinType, String villageName) {
+        this.nickname = name;
+        this.skin = skinType;
+        this.village = villageName;
     }
 
     public String getName() {
