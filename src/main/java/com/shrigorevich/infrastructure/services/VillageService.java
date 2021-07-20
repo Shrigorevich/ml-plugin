@@ -3,39 +3,30 @@ package com.shrigorevich.infrastructure.services;
 import com.mongodb.client.MongoDatabase;
 import com.shrigorevich.infrastructure.db.VillageContext;
 import com.shrigorevich.landRegistry.villages.Village;
-import com.shrigorevich.state.VillageManager;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class VillageService {
 
-    private VillageManager villageManager;
+    private Village village;
     private VillageContext villageContext;
 
     public VillageService(MongoDatabase dataBase) {
-        this.villageManager = new VillageManager();
         this.villageContext = new VillageContext(dataBase);
+        village = null;
     }
 
-    public boolean isVillageExist(String villageName) {
-        return villageManager.contains(villageName);
-    }
-
-    public void saveNewVillage(Village village) {
-        villageManager.addVillage(village);
-        villageContext.saveVillage(village);
-    }
-
-    public Collection<Village> getVillages() {
-        return villageManager.getVillages();
+    public boolean isVillageExist() {
+        return village != null;
     }
 
     public Village getVillage(String villageName) {
-        return villageManager.getVillage(villageName);
+        return village;
     }
 
-    public ArrayList<Village> loadVillages() {
-        return villageContext.getVillages();
+    public Village loadVillage() {
+        return villageContext.getVillage();
+    }
+
+    public void setVillage(Village village) {
+        this.village = village;
     }
 }

@@ -12,7 +12,10 @@ commands:
   cells:
     description: "Cell manager"
     aliases: [ c ]
-  test:
-    description: "Test"
-    aliases: [ t ]
+  matrix:
+    description: "Create matrix for village"
+    aliases: []
+  mob:
+    description: "mob spawner"
+    aliases: []
 

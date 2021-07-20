@@ -12,7 +12,7 @@ public class CellPurchaseProcessor {
         Plugin p = Plugin.getInstance();
         UserData uData = p.getUserService().getUserData(player.getName());
         //TODO: Check if the user has joined the village
-        MatrixCell[][] matrix = p.getCellService().getMatrix(uData.getVillage());
+        MatrixCell[][] matrix = p.getMatrixService().getMatrix(uData.getVillage());
         if(matrix[i][j].getOwner().equals(player.getName())) {
             matrix[i][j].setOwner("Default");
         }
@@ -21,7 +21,7 @@ public class CellPurchaseProcessor {
     public static void purchaseAttempted(Player player, int i, int j) {
         Plugin p = Plugin.getInstance();
         UserData uData = p.getUserService().getUserData(player.getName());
-        MatrixCell[][] matrix = p.getCellService().getMatrix(uData.getVillage());
+        MatrixCell[][] matrix = p.getMatrixService().getMatrix(uData.getVillage());
         MatrixCell targetCell = matrix[i][j];
 
         if(isAdminCell(targetCell)) {
@@ -31,7 +31,7 @@ public class CellPurchaseProcessor {
         } else if(isBlockingCellNearby(uData.getName(), matrix, i, j)) {
             player.sendMessage(ChatColor.RED + "The blocking cell is adjacent to the target cell");
         } else {
-            p.getCellService().setCellOwner(uData, targetCell, new CellAddress(i, j));
+            p.getMatrixService().setCellOwner(uData, targetCell, new CellAddress(i, j));
             player.sendMessage(ChatColor.GREEN + "Successful deal!");
         }
     }

@@ -11,21 +11,21 @@ import org.bson.Document;
 
 import java.util.ArrayList;
 
-public class CellService {
+public class MatrixService {
 
-    private MatrixCellContext cellContext;
+    private MatrixCellContext matrixContext;
     private MatrixManager matrixManager;
 
-    public CellService(MongoDatabase database) {
-        this.cellContext = new MatrixCellContext(database);
+    public MatrixService(MongoDatabase database) {
+        this.matrixContext = new MatrixCellContext(database);
         this.matrixManager = new MatrixManager();
     }
 
-    public void saveMatrix(MatrixCell[][] matrix, String villageName) {
+    public void applyMatrix(MatrixCell[][] matrix, String villageName) {
         Plugin p = Plugin.getInstance();
         for(int i = 0; i < matrix.length; i++) {
             for(int j = 0; j < matrix[i].length; j++) {
-                cellContext.saveCell(villageName, new CellAddress(i, j), matrix[i][j]);
+                matrixContext.saveCell(villageName, matrix[i][j]);
             }
         }
     }
@@ -36,11 +36,15 @@ public class CellService {
 
     public void setCellOwner(UserData uData, MatrixCell cell, CellAddress cellAddress) {
         cell.setOwner(uData.getName());
-        cellContext.updateCellOwner(cell, cellAddress, uData.getVillage());
+        matrixContext.updateCellOwner(cell, cellAddress, uData.getVillage());
     }
 
     public ArrayList<MatrixCell> loadCellsByVillage(String villageName) {
-        return cellContext.getCellsByVillage(villageName);
+        return matrixContext.getCellsByVillage(villageName);
+    }
+
+    public void setMatrix(MatrixCell[][] matrix) {
+        matrixManager.setMatrix(matrix);
     }
 
 }

@@ -1,10 +1,10 @@
 package com.shrigorevich.enums;
 
 public enum CellType {
-    DEFAULT("DEFAULT"),
     CIVIL("CIVIL"),
     ADMIN("ADMIN"),
-    GUILD("GUILD");
+    WALL("WALL"),
+    UNION("UNION");
 
     private final String typeName;
 

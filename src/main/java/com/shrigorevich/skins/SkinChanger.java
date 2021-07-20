@@ -5,7 +5,6 @@ import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import com.shrigorevich.Plugin;
 import org.bson.Document;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -26,27 +25,27 @@ public class SkinChanger {
 
     public void applySkin(Player player) {
 
-        Plugin p = Plugin.getInstance();
-        SkinType playerSkin = p.getPlayerManager().getPlayer(player.getName()).getSkin();
-
-        if (playerSkin.equals(SkinType.DEFAULT)) return;
-
-        GameProfile profile = ((CraftPlayer)player).getHandle().getProfile();
-        PropertyMap pm = profile.getProperties();
-        Property property = pm.get("textures").iterator().next();
-
-        if (property != null) pm.remove("textures", property);
-
-        switch (playerSkin) {
-            case FIRST:
-                applyFirst(pm);
-                break;
-            case SECOND:
-                applySecond(pm);
-                break;
-            default:
-                break;
-        }
+//        Plugin p = Plugin.getInstance();
+//        SkinType playerSkin = p.getPlayerManager().getPlayer(player.getName()).getSkin();
+//
+//        if (playerSkin.equals(SkinType.DEFAULT)) return;
+//
+//        GameProfile profile = ((CraftPlayer)player).getHandle().getProfile();
+//        PropertyMap pm = profile.getProperties();
+//        Property property = pm.get("textures").iterator().next();
+//
+//        if (property != null) pm.remove("textures", property);
+//
+//        switch (playerSkin) {
+//            case FIRST:
+//                applyFirst(pm);
+//                break;
+//            case SECOND:
+//                applySecond(pm);
+//                break;
+//            default:
+//                break;
+//        }
     }
 
     private void applyFirst(PropertyMap pm) {

@@ -31,7 +31,7 @@ public class OnBlockPlace implements Listener {
             int cellSize = p.getConfig().getInt("CELL_SIZE");
             int targetCellI = (blockLocation.getBlockX() - village.getArea().getX1()) / cellSize;
             int targetCellJ = (blockLocation.getBlockZ() - village.getArea().getZ1()) / cellSize;
-            MatrixCell[][] matrix = p.getCellService().getMatrix(village.getName());
+            MatrixCell[][] matrix = p.getMatrixService().getMatrix(village.getName());
             MatrixCell targetCell = matrix[targetCellI][targetCellJ];
 
             if(locationToCheck(blockLocation, targetCell) != null) {

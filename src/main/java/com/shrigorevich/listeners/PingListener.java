@@ -15,3 +15,4 @@ public class PingListener implements Listener {
         e.motd(Component.text(msg));
     }
 }
+

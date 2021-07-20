@@ -28,10 +28,9 @@ public class MatrixCellContext {
         cells.updateOne(Filters.and(addressFilter, villageFilter), set("owner", cell.getOwner()));
     }
 
-    public void saveCell(String villageName, CellAddress address, MatrixCell cell) {
+    public void saveCell(String villageName, MatrixCell cell) {
         Document cellDoc = CellMapper.packData(cell);
         cellDoc.append("villageName", villageName);
-        cellDoc.append("address", AddressMapper.packData(address));
         cells.insertOne(cellDoc);
     }
 

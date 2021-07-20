@@ -17,17 +17,6 @@ public class UserService {
         this.userContext = new UserContext(dataBase);
     }
 
-    public void joinVillage(Player player, String villageName) {
-        Plugin p = Plugin.getInstance();
-        if(p.getVillageService().isVillageExist(villageName)) {
-            UserData uData = userManager.getUser(player.getName());
-            uData.setVillage(villageName);
-            userContext.joinVillage(player.getName(), villageName);
-        } else {
-            player.sendMessage("Village with that name does not exist");
-        }
-    }
-
     public UserData getUserData(String userName) {
         return userManager.getUser(userName);
     }

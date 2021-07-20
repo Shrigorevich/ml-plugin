@@ -1,18 +1,25 @@
 package com.shrigorevich.landRegistry.villages;
 
-import com.shrigorevich.landRegistry.lands.MatrixCell;
-import org.bson.Document;
-
 public class Village {
 
     private VillageArea area;
     private String name;
+    private int dimensionX;
+    private int dimensionZ;
 
-    public Village() { }
-
-    public Village(String name, VillageArea area) {
+    public Village(String name, VillageArea area, int dimensionX, int dimensionZ) {
         this.name = name;
         this.area = area;
+        this.dimensionX = dimensionX;
+        this.dimensionZ = dimensionZ;
+    }
+
+    public int getDimensionX() {
+        return dimensionX;
+    }
+
+    public int getDimensionZ() {
+        return dimensionZ;
     }
 
     public String getName() {

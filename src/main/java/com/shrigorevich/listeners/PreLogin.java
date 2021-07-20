@@ -1,7 +1,7 @@
 package com.shrigorevich.listeners;
 
 import com.shrigorevich.Plugin;
-import net.kyori.adventure.text.Component;
+//import net.kyori.adventure.text.Component;
 import org.bson.Document;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -17,27 +17,27 @@ public class PreLogin implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void preLogin(AsyncPlayerPreLoginEvent event) {
-        String name = event.getName();
-        if (Plugin.getInstance().getPlayerManager().isAuthenticated(name)) {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text(nameMsg));
-            return;
-        }
-
-        Document doc = Plugin.getInstance().getUserContext().getRegisteredUser(name);
-
-        System.out.println(ChatColor.AQUA + "" + doc.getList("ips", String.class));
-
-        if (doc == null) {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text(regMsg));
-        }
-//        else if(!doc.getList("ips", String.class).contains(event.getAddress().toString())) {
-//            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text(ipMsg));
+//        String name = event.getName();
+//        if (Plugin.getInstance().getPlayerManager().isAuthenticated(name)) {
+//            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text(nameMsg));
+//            return;
 //        }
-        else if(!doc.getBoolean("paid")) {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text(paidMsg));
-        } else {
-            Plugin.getInstance().getPlayerManager().addPlayer(doc);
-        }
+//
+//        Document doc = Plugin.getInstance().getUserContext().getRegisteredUser(name);
+//
+//        System.out.println(ChatColor.AQUA + "" + doc.getList("ips", String.class));
+//
+//        if (doc == null) {
+//            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text(regMsg));
+//        }
+////        else if(!doc.getList("ips", String.class).contains(event.getAddress().toString())) {
+////            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text(ipMsg));
+////        }
+//        else if(!doc.getBoolean("paid")) {
+//            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text(paidMsg));
+//        } else {
+//            Plugin.getInstance().getPlayerManager().addPlayer(doc);
+//        }
     }
 
 
