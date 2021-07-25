@@ -10,7 +10,7 @@ public class MatrixManager {
 
     }
 
-    public MatrixCell[][] getMatrix(String village) {
+    public MatrixCell[][] getMatrix() {
         return matrix;
     }
 

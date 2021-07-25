@@ -28,6 +28,23 @@ public class MatrixCellContext {
         cells.updateOne(Filters.and(addressFilter, villageFilter), set("owner", cell.getOwner()));
     }
 
+    public boolean saveMatrix(String villageName, MatrixCell[][] matrix) {
+        try {
+            cells.deleteMany(new Document("villageName", villageName));
+            for (MatrixCell[] raw: matrix) {
+                for (MatrixCell cell : raw) {
+                    Document cellDoc = CellMapper.packData(cell);
+                    cellDoc.append("villageName", villageName);
+                    cells.insertOne(cellDoc);
+                }
+            }
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
     public void saveCell(String villageName, MatrixCell cell) {
         Document cellDoc = CellMapper.packData(cell);
         cellDoc.append("villageName", villageName);

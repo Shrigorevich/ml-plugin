@@ -3,9 +3,11 @@ package com.shrigorevich.infrastructure.services;
 import com.mongodb.client.MongoDatabase;
 import com.shrigorevich.Plugin;
 import com.shrigorevich.authorization.UserData;
+import com.shrigorevich.enums.VillageStatus;
 import com.shrigorevich.infrastructure.db.MatrixCellContext;
 import com.shrigorevich.landRegistry.lands.CellAddress;
 import com.shrigorevich.landRegistry.lands.MatrixCell;
+import com.shrigorevich.landRegistry.villages.VillageArea;
 import com.shrigorevich.state.MatrixManager;
 import org.bson.Document;
 
@@ -21,17 +23,18 @@ public class MatrixService {
         this.matrixManager = new MatrixManager();
     }
 
-    public void applyMatrix(MatrixCell[][] matrix, String villageName) {
+    public void applyMatrix(MatrixCell[][] matrix, VillageArea area,  String villageName) {
         Plugin p = Plugin.getInstance();
-        for(int i = 0; i < matrix.length; i++) {
-            for(int j = 0; j < matrix[i].length; j++) {
-                matrixContext.saveCell(villageName, matrix[i][j]);
+        if(p.getVillageService().isVillageExistDB(villageName)) {
+            boolean isAppliedSuccessfully = matrixContext.saveMatrix(villageName, matrix);
+            if(isAppliedSuccessfully) {
+                p.getVillageService().villageSetLocation(villageName, area, matrix);
             }
         }
     }
 
-    public MatrixCell[][] getMatrix(String villageName) {
-        return matrixManager.getMatrix(villageName);
+    public MatrixCell[][] getMatrix() {
+        return matrixManager.getMatrix();
     }
 
     public void setCellOwner(UserData uData, MatrixCell cell, CellAddress cellAddress) {

@@ -8,8 +8,8 @@ import org.bukkit.Material;
 
 public class VillageUtil {
 
-    public static void checkCell(String villageName, int x, int y) {
-        MatrixCell cell = Plugin.getInstance().getMatrixService().getMatrix(villageName)[x][y];
+    public static void checkCell( int x, int y) {
+        MatrixCell cell = Plugin.getInstance().getMatrixService().getMatrix()[x][y];
         Location[] corners = cell.getSquareCorners();
         for(Location l : corners) {
             //player.spawnParticle(Particle.SMOKE_NORMAL, l, 5,0.5,0,0,0);
@@ -17,25 +17,22 @@ public class VillageUtil {
         }
     }
 
-    public static void checkCells(String villageName) {
+    public static void checkCells() {
         Plugin p = Plugin.getInstance();
-        Village village = p.getVillageService().getVillage(villageName);
 
-        if(village != null) {
-            MatrixCell[][] matrix = p.getMatrixService().getMatrix(villageName);
-            for(MatrixCell[] row : matrix) {
-                for(MatrixCell cell : row) {
-                    Location[] corners = cell.getSquareCorners();
-                    for(Location l : corners) {
-                        l.getBlock().setType(Material.STONE);
-                    }
+        MatrixCell[][] matrix = p.getMatrixService().getMatrix();
+        for(MatrixCell[] row : matrix) {
+            for(MatrixCell cell : row) {
+                Location[] corners = cell.getSquareCorners();
+                for(Location l : corners) {
+                    l.getBlock().setType(Material.STONE);
                 }
             }
         }
     }
 
-    public static void clearCell(String villageName, int x, int y) {
-        MatrixCell cell = Plugin.getInstance().getMatrixService().getMatrix(villageName)[x][y];
+    public static void clearCell(String villageName, int x, int z) {
+        MatrixCell cell = Plugin.getInstance().getMatrixService().getMatrix()[x][z];
         Location[] corners = cell.getSquareCorners();
         for(Location l : corners) {
             //player.spawnParticle(Particle.SMOKE_NORMAL, l, 5,0.5,0,0,0);
@@ -43,8 +40,8 @@ public class VillageUtil {
         }
     }
 
-    public static void clearCells(String villageName) {
-        MatrixCell[][] matrix = Plugin.getInstance().getMatrixService().getMatrix(villageName);
+    public static void clearCells() {
+        MatrixCell[][] matrix = Plugin.getInstance().getMatrixService().getMatrix();
         for(MatrixCell[] row : matrix) {
             for(MatrixCell cell : row) {
                 Location[] corners = cell.getSquareCorners();

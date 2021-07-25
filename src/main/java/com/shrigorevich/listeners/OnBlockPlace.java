@@ -19,19 +19,16 @@ public class OnBlockPlace implements Listener {
         Player player = event.getPlayer();
         Location blockLocation = event.getBlockPlaced().getLocation();
         boolean isVillageBlock = false;
-        Village village = null;
-        for(Village v : p.getVillageService().getVillages()) {
-            if(v.getArea().contains(blockLocation)) {
-                isVillageBlock = true;
-                village = v;
-            }
+        Village village = p.getVillageService().getVillage();
+        if(village.getArea().contains(blockLocation)) {
+            isVillageBlock = true;
         }
 
         if(isVillageBlock) {
             int cellSize = p.getConfig().getInt("CELL_SIZE");
             int targetCellI = (blockLocation.getBlockX() - village.getArea().getX1()) / cellSize;
             int targetCellJ = (blockLocation.getBlockZ() - village.getArea().getZ1()) / cellSize;
-            MatrixCell[][] matrix = p.getMatrixService().getMatrix(village.getName());
+            MatrixCell[][] matrix = p.getMatrixService().getMatrix();
             MatrixCell targetCell = matrix[targetCellI][targetCellJ];
 
             if(locationToCheck(blockLocation, targetCell) != null) {

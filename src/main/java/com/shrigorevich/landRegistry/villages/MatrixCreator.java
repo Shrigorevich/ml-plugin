@@ -35,7 +35,7 @@ public class MatrixCreator {
         } else {
             int cellSize = p.getConfig().getInt("CELL_SIZE");
 
-            MatrixCell[][] matrix = new MatrixCell[dimX][dimZ];
+            this.matrix = new MatrixCell[dimX][dimZ];
 
             Location areaStartCorner = locations.getFirst();
             Location directionLocation = locations.getLast();
@@ -61,31 +61,29 @@ public class MatrixCreator {
                     Location l2 = l1.clone()
                             .add((cellSize-1) * cellDirectionX , 0, (cellSize-1) * cellDirectionZ);
 
-                    MatrixCell mc = new MatrixCell(l1, l2);
-                    matrix[i][j] = mc;
+                    MatrixCell mc = new MatrixCell(l1, l2, new CellAddress(i, j));
+                    this.matrix[i][j] = mc;
                 }
             }
-            this.matrix = matrix;
         }
     }
 
     public void apply(Player player, String villageName) {
         Plugin p = Plugin.getInstance();
-        Village village = p.getVillageService().getVillage(villageName);
-
-        if (village == null) {
+        boolean isVillageExist = p.getVillageService().isVillageExistDB(villageName);
+        if (!isVillageExist) {
             player.sendMessage("Please create a village first");
-        } else if (matrix == null) {
+        } else if (this.matrix == null) {
             player.sendMessage("Village matrix does not defined");
         } else {
-            p.getMatrixService().applyMatrix(matrix, village.getName());
-            matrix = null;
-            villageArea = null;
+            p.getMatrixService().applyMatrix(matrix, villageArea, villageName);
+            this.matrix = null;
+            this.villageArea = null;
         }
     }
 
     public void reset() {
-        villageArea = null;
-        matrix = null;
+        this.villageArea = null;
+        this.matrix = null;
     }
 }

@@ -15,7 +15,7 @@ public class MatrixExecutor implements CommandExecutor {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             Plugin p = Plugin.getInstance();
-            if(args[0].equals("matrix")) {
+            if(args[0].equals("create")) {
                 if (args.length >= 3) {
                     try {
                         int dimensionX = Integer.parseInt(args[1]);
@@ -30,13 +30,13 @@ public class MatrixExecutor implements CommandExecutor {
             } else if (args[0].equals("apply")) {
                 p.getMatrixCreator().apply(player, args[1]);
             } else if(args[0].equals("check")) {
-                checkCells(args[1]);
+                checkCells();
             } else if (args[0].equals("checkcell")) {
-                checkCell(args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+                checkCell(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
             } else if(args[0].equals("reset")) {
                 p.getMatrixCreator().reset();
             } else if (args[0].equals("clear")) {
-                clearCells(args[1]);
+                clearCells();
             }
         }
         return false;

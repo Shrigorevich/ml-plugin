@@ -20,7 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.shrigorevich.landRegistry.villages.VillageLoader.loadVillages;
+import static com.shrigorevich.landRegistry.villages.VillageLoader.loadVillage;
 
 
 public final class Plugin extends JavaPlugin implements Listener {
@@ -66,7 +66,7 @@ public final class Plugin extends JavaPlugin implements Listener {
         getCommand("cells").setExecutor(new CellExecutor());
         getCommand("mob").setExecutor(new MobExecutor());
 //        //TODO: move logic to startup class
-//        loadVillages();
+        loadVillage();
     }
 
     @Override

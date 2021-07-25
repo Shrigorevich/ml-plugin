@@ -12,7 +12,7 @@ public class CellPurchaseProcessor {
         Plugin p = Plugin.getInstance();
         UserData uData = p.getUserService().getUserData(player.getName());
         //TODO: Check if the user has joined the village
-        MatrixCell[][] matrix = p.getMatrixService().getMatrix(uData.getVillage());
+        MatrixCell[][] matrix = p.getMatrixService().getMatrix();
         if(matrix[i][j].getOwner().equals(player.getName())) {
             matrix[i][j].setOwner("Default");
         }
@@ -21,7 +21,7 @@ public class CellPurchaseProcessor {
     public static void purchaseAttempted(Player player, int i, int j) {
         Plugin p = Plugin.getInstance();
         UserData uData = p.getUserService().getUserData(player.getName());
-        MatrixCell[][] matrix = p.getMatrixService().getMatrix(uData.getVillage());
+        MatrixCell[][] matrix = p.getMatrixService().getMatrix();
         MatrixCell targetCell = matrix[i][j];
 
         if(isAdminCell(targetCell)) {
